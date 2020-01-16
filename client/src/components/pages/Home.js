@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import Banner from "../modules/Banner.js";
 import {Redirect} from "@reach/router";
+import Banner from "../modules/Banner.js";
 import MainGameButton from "../modules/MainGameButton.js";
 import FindGamesButton from "../modules/FindGamesButton.js";
 
