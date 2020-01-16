@@ -47,14 +47,21 @@ class App extends Component {
   render() {
     return (
       <>
+        <Navbar
+          handleLogin={this.handleLogin}
+          handleLogout={this.handleLogout}
+          userId={this.state.userId}
+        />
         <Router>
-          <Skeleton
-            path="/"
-            handleLogin={this.handleLogin}
-            handleLogout={this.handleLogout}
-            userId={this.state.userId}
+          <Home default
+            path="/home"
           />
-          <NotFound default />
+          <FindGames
+            path="/public"
+           />
+          <Game
+            path="/game/:gameId"
+          />
         </Router>
       </>
     );
