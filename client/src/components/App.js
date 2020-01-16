@@ -4,7 +4,7 @@ import NotFound from "./pages/NotFound.js";
 import Home from "./pages/Home.js";
 import NavBar from "./modules/NavBar.js";
 import Game from "./pages/Game.js";
-import FindGame from "./pages/FindGame.js";
+import FindGames from "./pages/FindGames.js";
 import Create from "./pages/Create.js";
 
 import "../utilities.css";
@@ -59,6 +59,7 @@ class App extends Component {
         <Router>
           <Home
             path="/"
+            userId = {this.state.userId}
           />
           <FindGames
             path="/public"
