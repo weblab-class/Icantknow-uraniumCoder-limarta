@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import Banner from "../modules/Banner.js";
-import {Link} from "@reach/router"
+import {Redirect} from "@reach/router";
+import MainGameButton from "../modules/MainGameButton.js";
+import FindGamesButton from "../modules/FindGamesButton.js";
 
 import "../../utilities.css";
 import "./Home.css";
@@ -38,3 +40,5 @@ class Home extends Component {
     );
   }
 }
+
+export default Home;
