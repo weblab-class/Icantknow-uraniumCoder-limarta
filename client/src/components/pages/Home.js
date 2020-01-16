@@ -8,27 +8,33 @@ import "./Home.css";
 class Home extends Component {
   constructor(props){
     super(props);
+    this.state = {
+      redirect : false
+    };
   }
   componentDidMount(){
 
   }
   startCreating(){
-
+    this.setState({redirect : "create"});
   }
   render(){
+    if(this.state.redirect){
+      return (<Redirect to="/create"/>);
+    }
     return (
       <>
-        <Banner />
+        <Banner/>
         <div onClick = {this.startCreating}/> // some CSS code for this button to make it smaller
         <div className = "u-flex"/>
           <div className = "u-grow" />
-            <MainGameButton userId = {this.props.userId}/>
+            <MainGameButton />
           </div>
           <div className = "u-groow" />
             <FindGamesButton />
           </div>
         </div>
       </>
-    )
+    );
   }
 }

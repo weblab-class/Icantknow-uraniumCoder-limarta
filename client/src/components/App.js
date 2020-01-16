@@ -59,18 +59,15 @@ class App extends Component {
         <Router>
           <Home
             path="/"
-            userId = {this.state.userId}
           />
           <FindGames
             path="/public"
            />
           <Game
             path="/game"
-            userId = {this.state.userId}
           />
           <Create
             path="/create"
-            userId = {this.state.userId}
           />
           <NotFound default/>
         </Router>
