@@ -53,8 +53,8 @@ class App extends Component {
           userId={this.state.userId}
         />
         <Router>
-          <Home default
-            path="/home"
+          <Home 
+            path="/"
           />
           <FindGames
             path="/public"
@@ -62,6 +62,7 @@ class App extends Component {
           <Game
             path="/game/:gameId"
           />
+          <NotFound default/>
         </Router>
       </>
     );
