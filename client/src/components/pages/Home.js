@@ -17,7 +17,7 @@ class Home extends Component {
   componentDidMount(){
 
   }
-  startCreating(){
+  startCreating = () => {
     this.setState({redirect : "create"});
   }
   render(){
@@ -27,7 +27,7 @@ class Home extends Component {
     return (
       <>
         <Banner/>
-        <div onClick = {this.startCreating}/> // some CSS code for this button to make it smaller
+        <div onClick = {this.startCreating}> Start Game </div>
         <div className = "u-flex">
           <div className = "u-grow" >
             <MainGameButton />

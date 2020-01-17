@@ -49,7 +49,10 @@ mongoose
     dbName: databaseName,
   })
   .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.log(`Error connecting to MongoDB: ${err}`));
+  .catch((err) => {
+    console.log(`Error connecting to MongoDB: ${err}`);
+    console.log(mongoConnectionURL);
+  });
 
 // create a new express server
 const app = express();

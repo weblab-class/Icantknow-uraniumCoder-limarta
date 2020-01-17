@@ -51,7 +51,7 @@ class App extends Component {
   render() {
     return (
       <>
-        <Navbar
+        <NavBar
           handleLogin={this.handleLogin}
           handleLogout={this.handleLogout}
           userId={this.state.userId}
