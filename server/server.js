@@ -28,6 +28,10 @@ const path = require("path"); // provide utilities for working with file and dir
 const api = require("./api");
 const auth = require("./auth");
 
+require("../.env");
+
+const port = (process.env.PORT || 5000);
+
 // socket stuff
 const socket = require("./server-socket");
 
