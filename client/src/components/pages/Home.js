@@ -27,7 +27,7 @@ class Home extends Component {
     return (
       <>
         <Banner/>
-        <div onClick = {this.startCreating}> Start Game </div>
+        <div onClick = {this.startCreating}> Start Creating </div>
         <div className = "u-flex">
           <div className = "u-grow" >
             <MainGameButton />
