@@ -18,7 +18,7 @@ class Game extends Component{
       get("/api/gameowner", {gameId: this.props.gameId}),
     ]).then((allData) => {
       if(allData[0] && allData[0]._id == allData[1]){
-        this.setState(canPlay: true);
+        this.setState({canPlay: true});
       }
     });
   }

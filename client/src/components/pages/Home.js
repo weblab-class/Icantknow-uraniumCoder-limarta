@@ -28,11 +28,11 @@ class Home extends Component {
       <>
         <Banner/>
         <div onClick = {this.startCreating}/> // some CSS code for this button to make it smaller
-        <div className = "u-flex"/>
-          <div className = "u-grow" />
+        <div className = "u-flex">
+          <div className = "u-grow" >
             <MainGameButton />
           </div>
-          <div className = "u-groow" />
+          <div className = "u-groow" >
             <FindGamesButton />
           </div>
         </div>
