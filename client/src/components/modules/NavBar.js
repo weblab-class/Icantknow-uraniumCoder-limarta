@@ -1,16 +1,44 @@
 import React, {Component} from "react";
 import {Link} from "@reach/router";
+import {get} from "../../utilities.js";
+import GoogleLogin, {GoogleLogout} from "react-google-login";
+
+const GOOGLE_CLIENT_ID = "479544640691-a1flghs1ov40jord9i5ij1lv1m7s3l67.apps.googleusercontent.com"
 
 class NavBar extends Component{
   constructor(props){
     super(props);
+    this.state = {userId: null};
   }
   componentDidMount(){
-
+    get("/api/whoami").then((user) => {
+      this.setState({userId: user._id});
+    });
   }
   render(){
     return (
       <>
+        <Link to = "/"> Home </Link>
+        {this.state.userId &&(
+          <Link to = "/create"> Create </Link>
+        )}
+        {this.props.userId ? (
+          <GoogleLogout
+            clientId={GOOGLE_CLIENT_ID}
+            buttonText="Logout"
+            onLogoutSuccess={this.props.handleLogout}
+            onFailure={(err) => console.log(err)}
+            className="NavBar-link NavBar-login"
+          />
+        ) : (
+          <GoogleLogin
+            clientId={GOOGLE_CLIENT_ID}
+            buttonText="Login"
+            onSuccess={this.props.handleLogin}
+            onFailure={(err) => console.log(err)}
+            className="NavBar-link NavBar-login"
+          />
+        )}
       </>
     );
   }
