@@ -27,7 +27,7 @@ class Home extends Component {
     return (
       <>
         <Banner/>
-        <div className = "u-justifyCenter u-alignCenter">
+        <div className = "u-flex-justifyCenter u-flex-alignCenter">
           <div className = "u-textbox" onClick = {this.startCreating}> Start Creating </div>
         </div>
         <div className = "u-flex">
