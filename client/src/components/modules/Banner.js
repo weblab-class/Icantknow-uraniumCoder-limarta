@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Redirect} from "@reach/router";
 
+import "./Banner.css";
 import "../../utilities.css";
 
 class Banner extends Component{
@@ -12,8 +13,7 @@ class Banner extends Component{
   }
   render(){
     return (
-      <>
-      </>
+      <div className = "Banner-Image"/>
     );
   }
 }
