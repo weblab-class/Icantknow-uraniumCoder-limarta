@@ -8,18 +8,18 @@ const GOOGLE_CLIENT_ID = "479544640691-51g8t3fnavqe7g8l4fbarhcgk6ou5ofl.apps.goo
 class NavBar extends Component{
   constructor(props){
     super(props);
-    this.state = {userId: null};
   }
   componentDidMount(){
-    get("/api/whoami").then((user) => {
-      this.setState({userId: user._id});
-    });
+    // get("/api/whoami").then((user) => {
+    //   this.setState({userId: user._id});
+    // });
   }
   render(){
+    console.log("rendering Navbar");
     return (
       <>
         <Link to = "/"> Home </Link>
-        {this.state.userId &&(
+        {this.props.userId &&(
           <Link to = "/create"> Create </Link>
         )}
         {this.props.userId ? (
