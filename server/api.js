@@ -25,7 +25,9 @@ router.get("/test", (req, res) => {
   res.send({msg:"good test"});
 });
 router.post("/login", (req, res) => {
-  auth.login;
+  console.log("Trying to log in");
+  auth.login (req, res);
+  console.log("Tried to log in");
 });
 router.post("/logout", auth.logout);
 router.get("/whoami", (req, res) => {
