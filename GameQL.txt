@@ -1,18 +1,19 @@
-game {
+Game{
 gameId String,
-owner userId,
-reactionRules Rule[],
-elementsFound Element[],
-reactionHistory Rule,
+ownerId String,
+reactionRules String[],
+createdElements String[],
+reactionHistory String[], (for later)
 }
 
 Rule{
-  reactants Element[]
-  products Element[]
+ruleId String,
+reactants Element[],
+products Element[]
 }
 
 Element{
-  elementId String,
-  elementName String,
-  elementImage Image,
+elementId String,
+elementName String,
+elementImage Image,
 }
