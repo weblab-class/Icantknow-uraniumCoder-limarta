@@ -21,6 +21,9 @@ const router = express.Router();
 //initialize socket
 const socket = require("./server-socket");
 
+router.get("/test", (req, res) => {
+  res.send({msg:"good test"});
+});
 router.post("/login", (req, res) => {
   auth.login;
 });

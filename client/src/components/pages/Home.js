@@ -28,7 +28,7 @@ class Home extends Component {
       <>
         <Banner/>
         <div className = "u-flex-justifyCenter u-flex-alignCenter">
-          <div className = "u-textbox" onClick = {this.startCreating}> Start Creating </div>
+          <button className = "u-textbox" onClick = {this.startCreating}> Start Creating </button>
         </div>
         <div className = "u-flex">
           <div className = "u-grow" >

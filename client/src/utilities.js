@@ -50,7 +50,7 @@ export function get(endpoint, params = {}) {
 // Helper code to make a post request. Default parameter of empty JSON Object for params.
 // Returns a Promise to a JSON Object.
 export function post(endpoint, params = {}) {
-  return fetch(":3000" + endpoint, {
+  return fetch(endpoint, {
     method: "post",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify(params),

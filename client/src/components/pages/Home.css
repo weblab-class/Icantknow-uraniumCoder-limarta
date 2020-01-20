@@ -1,0 +1,9 @@
+.FindGamesButton-findButton {
+  max-width: 100%;
+  height: auto;
+  /* div height to be the same as width*/
+  padding-top: 100%;
+  background-image: url("../../public/find.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
