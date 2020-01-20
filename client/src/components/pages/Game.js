@@ -5,7 +5,7 @@ import {get, post} from "../../utilities.js";
 import "../../utilities.css";
 import "./Game.css";
 
-import MessageBox from "./MessageBox";
+import MessageBox from "./../modules/MessageBox";
 import Element from "./../modules/Element";
 
 /*
@@ -71,6 +71,9 @@ class Game extends Component{
       <>
         <MessageBox message={this.state.textMessage} />
         {this.showAllElements()}
+        <div class="main-game-box">
+          hi
+        </div>
       </>
     );
   }
