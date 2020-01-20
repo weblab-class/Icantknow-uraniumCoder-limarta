@@ -31,6 +31,8 @@ class App extends Component {
         // they are registed in the database, and currently logged in.
         this.setState({ userId: user._id });
       }
+    }).catch((error) =>{
+      console.log(error);
     });
   }
 
