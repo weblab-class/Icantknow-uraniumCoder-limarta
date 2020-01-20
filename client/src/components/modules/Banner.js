@@ -13,7 +13,9 @@ class Banner extends Component{
   }
   render(){
     return (
-      <div className = "Banner-Image"/>
+      <div className = "Banner-Image">
+        <div className = "Banner-innerIm" />
+      </div>
     );
   }
 }
