@@ -57,26 +57,30 @@ class App extends Component {
     console.log("rendering App");
     return (
       <>
-        <NavBar
-          handleLogin={this.handleLogin}
-          handleLogout={this.handleLogout}
-          userId={this.state.userId}
-        />
-        <Router>
-          <Home
-            path="/"
-          />
-          <FindGames
-            path="/public"
-           />
-          <Game
-            path="/game/:gameId"
-          />
-          <Create
-            path="/create"
-          />
-          <NotFound default/>
-        </Router>
+        <div className = "u-app u-flexColumn">
+          <div className = "u-flexRow" >
+            <NavBar
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+              userId={this.state.userId}
+            />
+          </div>
+            <Router className = "u-flex u-grow">
+              <Home
+                path="/"
+              />
+              <FindGames
+                path="/public"
+               />
+              <Game
+                path="/game/:gameId"
+              />
+              <Create
+                path="/create"
+              />
+              <NotFound default/>
+            </Router>
+        </div>
       </>
     );
   }
