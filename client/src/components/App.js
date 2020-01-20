@@ -31,15 +31,21 @@ class App extends Component {
         // they are registed in the database, and currently logged in.
         this.setState({ userId: user._id });
       }
+    }).catch((error) =>{
+      console.log(error);
     });
   }
 
   handleLogin = (res) => {
-    console.log(`Logged in as ${res.profileObj.name}`);
     const userToken = res.tokenObj.id_token;
     post("/api/login", { token: userToken }).then((user) => {
+      console.log(user);
       this.setState({ userId: user._id });
+      console.log(`Logged in as ${res.profileObj.name}`);
       post("/api/initsocket", { socketid: socket.id });
+    }).catch((err) => {
+      console.log(err);
+      alert(err);
     });
   };
 
@@ -49,28 +55,33 @@ class App extends Component {
   };
 
   render() {
+    console.log("rendering App");
     return (
       <>
-        <NavBar
-          handleLogin={this.handleLogin}
-          handleLogout={this.handleLogout}
-          userId={this.state.userId}
-        />
-        <Router>
-          <Home
-            path="/"
-          />
-          <FindGames
-            path="/public"
-           />
-          <Game
-            path="/game/:gameId"
-          />
-          <Create
-            path="/create"
-          />
-          <NotFound default/>
-        </Router>
+        <div className = "u-app u-flexColumn">
+          <div className = "u-flexRow" >
+            <NavBar
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+              userId={this.state.userId}
+            />
+          </div>
+            <Router className = "u-flex u-grow">
+              <Home
+                path="/"
+              />
+              <FindGames
+                path="/public"
+               />
+              <Game
+                path="/game/:gameId"
+              />
+              <Create
+                path="/create"
+              />
+              <NotFound default/>
+            </Router>
+        </div>
       </>
     );
   }

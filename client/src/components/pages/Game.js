@@ -12,6 +12,7 @@ import Element from "./../modules/Element";
 @gameId : The ID of current game. Default is the main game
 */
 class Game extends Component{
+  const DEFAULT_GAME_ID = 0;
   constructor(props){
     super(props);
     this.state = {
@@ -20,7 +21,7 @@ class Game extends Component{
       textMessage: "adasds",
     }
   }
-  
+
   componentDidMount(){
     // Checks if game belongs to the logged in user
     Promise.all([
@@ -34,11 +35,11 @@ class Game extends Component{
   }
 
   sendElements = (el1, el2) => {
-    get("/api/querycombine", [el1, el2]).then(obj => {
+    get("/api/querycombine", {gameId: DEFAULT_GAME_ID ,elements: [el1, el2]}).then(obj => {
       if (obj) {
-        if (!this.state.found.includes(obj)) {
+        if (!this.state.found.includes(obj.products)) {
           this.setState({
-            found: this.state.found.concat(obj),
+            found: this.state.found.concat(obj.products),
             textMessage: "found stuff"
           })
           // give MessageBox something about

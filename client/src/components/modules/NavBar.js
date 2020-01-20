@@ -3,23 +3,23 @@ import {Link} from "@reach/router";
 import {get} from "../../utilities.js";
 import GoogleLogin, {GoogleLogout} from "react-google-login";
 
-const GOOGLE_CLIENT_ID = "479544640691-a1flghs1ov40jord9i5ij1lv1m7s3l67.apps.googleusercontent.com"
+const GOOGLE_CLIENT_ID = "479544640691-51g8t3fnavqe7g8l4fbarhcgk6ou5ofl.apps.googleusercontent.com"
 
 class NavBar extends Component{
   constructor(props){
     super(props);
-    this.state = {userId: null};
   }
   componentDidMount(){
-    get("/api/whoami").then((user) => {
-      this.setState({userId: user._id});
-    });
+    // get("/api/whoami").then((user) => {
+    //   this.setState({userId: user._id});
+    // });
   }
   render(){
+    console.log("rendering Navbar");
     return (
       <>
         <Link to = "/"> Home </Link>
-        {this.state.userId &&(
+        {this.props.userId &&(
           <Link to = "/create"> Create </Link>
         )}
         {this.props.userId ? (

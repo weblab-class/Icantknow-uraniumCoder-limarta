@@ -6,11 +6,16 @@
 | This file defines the routes for your server.
 |
 */
+import mathUtils from "./mathUtils.js";
 
 const express = require("express");
 
 // import models so we can interact with the database
 const User = require("./models/user");
+
+const Game = require("./models/game");
+const Rule = require("./models/rule");
+const Element = require("./models/element");
 
 // import authentication library
 const auth = require("./auth");
@@ -21,8 +26,19 @@ const router = express.Router();
 // initialize socket
 const socket = require("./server-socket");
 
+
 // import game to get list of combinations
-const game = require("./game");
+const game = require(".game");
+
+
+router.get("/test", (req, res) => {
+  res.send({msg:"good test"});
+});
+router.post("/login", (req, res) => {
+  console.log("Trying to log in");
+  auth.login (req, res);
+  console.log("Tried to log in");
+});
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -42,17 +58,32 @@ router.post("/initsocket", (req, res) => {
 });
 
 router.get("/querycombine", (req, res) => {
-  let comb1 = game.combinations[req.query[0]+"_"+req.query[1]];
-  let comb2 = game.combinations[req.query[1]+"_"+req.query[0]];
 
-  if (comb1) {
-    return comb1;
-  } else if (comb2) {
-    return comb2;
-  } else {
-    return false;
-  }
-  
+  let selected = req.query.elements;
+  Game.find({_id: req.query.gameId}).then((game) => {
+    return game.reactionRules;
+  }).then((ruleIds) => {
+    return Rule.find({_id: {$in : ruleIds}, reactants: {$all: selected, $size: selected.length}})
+  }).then((applicableRules) => {
+    if(!applicableRules){
+      res.send({});
+    } else {
+      allProducts = applicableRules.map((r) => {return r.products});
+      res.send({products: mathUtils.union(allProducts)});
+    }
+  });
+
+  // let comb1 = game.combinations[req.query[0]+"_"+req.query[1]];
+  // let comb2 = game.combinations[req.query[1]+"_"+req.query[0]];
+  //
+  // if (comb1) {
+  //   return comb1;
+  // } else if (comb2) {
+  //   return comb2;
+  // } else {
+  //   return false;
+  // }
+
 });
 
 // |------------------------------|
