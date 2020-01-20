@@ -37,7 +37,9 @@ const socket = require("./server-socket");
 
 // Server configuration below
 // TODO change connection URL after setting up your team database
-const mongoConnectionURL = process.env.ATLAS_SRV;
+//const mongoConnectionURL = process.env.ATLAS_SRV;
+const mongoConnectionURL =
+  "mongodb+srv://weblab:jAT4po55IAgYWQgR@catbook-ylndp.mongodb.net/test?retryWrites=true&w=majority";
 // TODO change database name to the name you chose
 const databaseName = "Cluster0";
 
@@ -64,7 +66,8 @@ app.use(express.json());
 // set up a session, which will persist login data across requests
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    //secret: process.env.SESSION_SECRET,
+    secret: "secashjkdjf",
     resave: false,
     saveUninitialized: false,
   })
