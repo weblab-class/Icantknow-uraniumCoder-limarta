@@ -10,24 +10,13 @@ class FindGameBlock extends Component {
         super(props);
     }
     render() {
-            return ( <div >
-                <div > {
-                    this.props.games.map((comment) => ( <
-                        FindGames _id = {
-                            comment._id
-                        }
-                        content = {
-                            comment.content
-                        }
-                        />
-                    ))
-                }
-            )
-        } <
-        /div> <
-        /div>
-);
-}
+      return (
+        <div>
+        {this.props.games.map((game) =>
+          <GameCard _id = {game._id} name={game.name} content = {game.content}/>)}
+        </div>
+      )
+    }
 }
 
 export default GameBlock;

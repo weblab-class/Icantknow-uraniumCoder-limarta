@@ -16,11 +16,11 @@ class FindGames extends Component{
   render(){
     let gameBlock = "No available games"
     if(games.length!==0){
-        gameBlock = this.state.games.map((game)=><FindGameBlock _id={game.id} content={game.content}/>)
+        gameBlock = this.state.games.map((game)=><FindGameBlock data={this.state.games}/>)
     }
 
     return (<div>
-        {}
+        <FindGameBlock defaultText="" value=""/>
         {gameBlock}
     </div>);
   }
