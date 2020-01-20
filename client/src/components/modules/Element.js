@@ -15,7 +15,7 @@ class Element extends Component{
   render(){
     return (
       <>
-        <div class="element-box">
+        <div className="element-box">
           {this.props.element}
         </div>
       </>

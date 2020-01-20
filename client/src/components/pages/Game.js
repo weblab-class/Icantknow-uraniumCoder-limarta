@@ -7,12 +7,12 @@ import "./Game.css";
 
 import MessageBox from "./../modules/MessageBox";
 import Element from "./../modules/Element";
+import ElementName from "./../modules/ElementName";
 
 /*
 @gameId : The ID of current game. Default is the main game
 */
 class Game extends Component{
-  const DEFAULT_GAME_ID = 0;
   constructor(props){
     super(props);
     this.state = {
@@ -61,7 +61,7 @@ class Game extends Component{
     let elementList = [];
 
     for (let i = 0; i < this.state.found.length; i++) {
-      elementList.push(<Element element={this.state.found[i]} />);
+      elementList.push(<ElementName element={this.state.found[i]} />);
     }
 
     return elementList;
@@ -70,10 +70,14 @@ class Game extends Component{
   render(){
     return (
       <>
-        <MessageBox message={this.state.textMessage} />
-        {this.showAllElements()}
-        <div class="main-game-box">
-          hi
+        <div class="main-game-box u-grow">
+          <div class="combining-area u-grow">
+            <MessageBox message={this.state.textMessage} />
+            <div className="element-list">
+              {this.showAllElements()}
+            </div>
+            asijdfiajdifjaoidfaisdfjo
+          </div>
         </div>
       </>
     );

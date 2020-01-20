@@ -3,7 +3,7 @@ import {Link} from "@reach/router";
 
 import "./../pages/Game.css";
 
-class MessageBox extends Component{
+class ElementName extends Component{
   constructor(props){
     super(props);
   }
@@ -11,13 +11,16 @@ class MessageBox extends Component{
   componentDidMount(){
 
   }
+
   render(){
     return (
       <>
-          <div className="message-box">{this.props.message}</div>
+        <div className="element-name">
+          {this.props.element}
+        </div>
       </>
     );
   }
 }
 
-export default MessageBox;
+export default ElementName;
