@@ -1,12 +1,9 @@
-var mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-var Schema = mongoose.Schema;
+const PhotoSchema = new mongoose.Schema({
+  name: String,
+  googleid: String,
+});
 
-var photoSchema = new Schema({
-
-  path:  { type: String },
-
-  caption: { type: String }
-  });
-
-module.exports = mongoose.model('Photos', photoSchema);
+// compile model from schema
+module.exports = mongoose.model("Photo", PhotoSchema);

@@ -25,6 +25,7 @@ const express = require("express"); // backend framework for our node server.
 const session = require("express-session"); // library that stores info about each connected user
 const mongoose = require("mongoose"); // library to connect to MongoDB
 const path = require("path"); // provide utilities for working with file and directory paths
+const multer = require("multer")
 
 const api = require("./api");
 const auth = require("./auth");
@@ -75,6 +76,12 @@ app.use(
 
 // this checks if the user is logged in, and populates "req.user"
 app.use(auth.populateCurrentUser);
+
+// multer middleware for image upload
+// app.use(multer({ dest: "./uploads/", rename: (fieldname, filename) =>{
+//    return filename;
+//  },
+// }));
 
 // connect user-defined routes
 app.use("/api", api);
