@@ -151,7 +151,12 @@ router.get("/found", (req, res) => {
 });
 
 router.post("/newElement", (req, res) => {
-
+  if(req.user){
+    PlayGame.update({template: req.body.gameId, player: req.user._id}, {$push: {createdElements: req.body.element}});
+    res.send(PlayGame.findOne({template: req.body.gameId, player: req.user._id}));
+  } else {
+    console.log("user not logged in cannot save progress");
+  }
 });
 
 // |------------------------------|
