@@ -18,13 +18,31 @@ class SingleElement extends Component{
     ev.dataTransfer.dropEffect = "move";
   }
 
+  getX = () => {
+    if (this.props.element[1] === 0) {
+      return "20%"
+    }
+    else {
+      return "80%"
+    }
+  }
+
   render(){
     return (
       <>
-        <div className="element-box" draggable="true" ondragstart="dragstart_handler(event)">
+        <div style={{
+          position: "absolute",
+          left: this.getX(),
+          top: "30vh",
+          textAlign: "center",
+          border: "1px",
+          "border-style": "solid",
+          "border-color": "#000000",
+          width: "70px",
+          height: "70px",
+        }} id = {this.props.key}>
           {this.props.element[0]}
         </div>
-        <style>left: 100px; top 100px;</style>
       </>
     );
   }
