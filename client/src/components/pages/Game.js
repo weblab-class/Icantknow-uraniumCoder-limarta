@@ -35,7 +35,7 @@ class Game extends Component{
   }
 
   sendElements = (el1, el2) => {
-    get("/api/querycombine", {gameId: DEFAULT_GAME_ID ,elements: [el1, el2]}).then(obj => {
+    get("/api/querycombine", {elements: [el1, el2]}).then(obj => {
       if (obj) {
         if (!this.state.found.includes(obj.products)) {
           this.setState({

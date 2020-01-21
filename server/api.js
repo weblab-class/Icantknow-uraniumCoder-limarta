@@ -6,7 +6,7 @@
 | This file defines the routes for your server.
 |
 */
-import mathUtils from "./mathUtils.js";
+const mathUtils = require("./mathUtils.js");
 
 const express = require("express");
 
@@ -28,7 +28,7 @@ const socket = require("./server-socket");
 
 
 // import game to get list of combinations
-const game = require(".game");
+// const game = require(".game");
 
 
 router.get("/test", (req, res) => {
@@ -77,11 +77,11 @@ router.get("/querycombine", (req, res) => {
   // let comb2 = game.combinations[req.query[1]+"_"+req.query[0]];
   //
   // if (comb1) {
-  //   return comb1;
+  //   res.send({products: comb1};
   // } else if (comb2) {
-  //   return comb2;
+  //   res.send({products: comb2};
   // } else {
-  //   return false;
+  //   res.send({});
   // }
 
 });

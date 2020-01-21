@@ -1,4 +1,4 @@
-export function union(lists){
+function union(lists){
   result = [];
   lists.forEach((x) => {
       x.forEach((y) => {
@@ -9,3 +9,7 @@ export function union(lists){
   });
   return results;
 }
+
+module.exports = {
+  union,
+};
