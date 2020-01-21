@@ -23,7 +23,7 @@ class Find extends Component{
     console.log("Render find page")
     console.log(this.state.games)
     if(this.state.games.length !== 0){
-        // gameBlock = this.state.games.map((game)=><FindGameBlock data={this.state.games}/>)
+        gameBlock = this.state.games.map((game)=><FindGameBlock data={this.state.games}/>)
     }
 
     return (<div>

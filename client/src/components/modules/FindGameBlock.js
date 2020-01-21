@@ -10,13 +10,17 @@ class FindGameBlock extends Component {
     constructor(props) {
         super(props);
     }
+    componentDidMount(){
+      // console.log(this.props.data)
+    }
     render() {
+      // {this.props.games.map((game) =>
+      //   <GameCard _id = {game._id} name={game.name} content = {game.content}/>)}
       return (
         <div>
-          {this.props.games.map((game) =>
-            <GameCard _id = {game._id} name={game.name} content = {game.content}/>)}
+          <h1>Games!</h1>
         </div>
-      )
+      );
     }
 }
 

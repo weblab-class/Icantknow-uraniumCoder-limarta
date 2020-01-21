@@ -4,7 +4,7 @@ import {get} from "../../utilities.js"
  * @typedef ContentObject
  * @property {string} _id of the game
  * @property {string} name of the game
- * @property {string} content of th game
+ * @property {string} plays of the game (optional)
  */
 class GameCard extends Component {
     constructor(props) {
