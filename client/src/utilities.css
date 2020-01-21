@@ -46,6 +46,11 @@ form {
   display: flex;
 }
 
+.u-flexRow {
+  display :flex;
+  flex-direction: row;
+}
+
 .u-flexColumn {
   display: flex;
   flex-direction: column;
@@ -98,4 +103,9 @@ form {
 }
 .u-textbox {
   width: auto;
+}
+
+.u-app {
+  width:100%;
+  min-height: 100vh;
 }
