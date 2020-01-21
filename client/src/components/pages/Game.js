@@ -86,12 +86,16 @@ class Game extends Component{
     // }
     return (
       <>
-        <MessageBox message={this.state.textMessage} />
-        {this.state.found.map((element) => {
-          (<SingleElement element = {element}/>);
-        }}
-        <div class="main-game-box">
-          hi
+        <div class="main-game-box u-grow">
+          <div class="combining-area u-grow">
+            <MessageBox message={this.state.textMessage} />
+            <div className="element-list">
+              {this.state.found.map((element) => {
+                (<SingleElement element = {element}/>);
+              }}
+            </div>
+            asijdfiajdifjaoidfaisdfjo
+          </div>
         </div>
       </>
     );
