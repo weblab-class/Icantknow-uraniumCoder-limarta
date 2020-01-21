@@ -15,5 +15,5 @@ products Element[]
 Element{
 elementId String,
 elementName String,
-elementImage Image,
+elementImage Image, (for later)
 }
