@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Redirect} from "@reach/router";
 
 import "../../utilities.css";
-import "../pages/Home.css"
+import "../pages/Home.css";
 
 class FindGamesButton extends Component{
   constructor(props){
