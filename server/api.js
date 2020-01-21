@@ -126,14 +126,14 @@ router.get("/found", (req, res) => {
     });
   } else{
     console.log("logged in user wants to play");
-    PlayGame.find({template: req.query.gameId, player: req.user._id}).then((game) => {
-      console.log(game);
-      if(game.length == 0){
+    PlayGame.find({template: req.query.gameId, player: req.user._id}).then((playGame) => {
+      console.log(playGame);
+      if(playGame.length == 0){
         console.log("creating new game");
         Game.find({_id: req.query.gameId}).then((template) => {
           const newPlay = new PlayGame({
             template: req.query.gameId,
-            owner: req.user._id,
+            player: req.user._id,
             createdElements : template.startingElements,
           });
           newPlay.save();
@@ -141,7 +141,8 @@ router.get("/found", (req, res) => {
         });
       } else {
         console.log("Found Game");
-        res.send({found: game.createdElements});
+        console.log(playGame[0].createdElements);
+        res.send({found: playGame[0].createdElements});
       }
     }).catch((err) => {
       console.log(err);
