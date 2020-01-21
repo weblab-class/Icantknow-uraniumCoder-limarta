@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {get} from "../utilities.js"
+import GameCard from "./GameCard.js"
+import {get} from "../../utilities.js"
 /**
  * @typedef ContentObject
  * @property {string} _id
@@ -12,11 +13,11 @@ class FindGameBlock extends Component {
     render() {
       return (
         <div>
-        {this.props.games.map((game) =>
-          <GameCard _id = {game._id} name={game.name} content = {game.content}/>)}
+          {this.props.games.map((game) =>
+            <GameCard _id = {game._id} name={game.name} content = {game.content}/>)}
         </div>
       )
     }
 }
 
-export default FindGameBlock;
+export default FindGameBlock

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {get} from "../utilities.js"
+import {get} from "../../utilities.js"
 /**
  * @typedef ContentObject
  * @property {string} _id of the game
@@ -14,7 +14,7 @@ class GameCard extends Component {
       return (
         <div>
           <p>{this.props.name}</p>
-          <img src="" alt="Icon"/>
+          {/* <img src="" alt="Icon"/> */}
         </div>
       );
     }
