@@ -16,8 +16,10 @@ class Game extends Component{
     super(props);
     this.state = {
       canPlay: false,
-      found: [],
+      found: ["air", "water", ],
       textMessage: "adasds",
+      elementsInPlay: [],
+      height: 1
     }
   }
 
@@ -73,16 +75,51 @@ class Game extends Component{
       }
     });
   }
-  //
-  // showAllElements = () => {
-  //   let elementList = [];
-  //
-  //   for (let i = 0; i < this.state.found.length; i++) {
-  //     elementList.push(<Element element={this.state.found[i]} />);
-  //   }
-  //
-  //   return elementList;
-  // }
+
+  showAllElements = () => {
+    let elementList = [];
+
+    for (let i = 0; i < this.state.found.length; i++) {
+      elementList.push(<ElementName
+        element={this.state.found[i]}
+        clickFun = {() => {this.makeElementsInPlay(this.state.found[i])}}
+      />);
+    }
+
+    return elementList;
+  }
+
+  makeElementsInPlay = (name) => {
+    this.setState({
+      elementsInPlay: this.state.elementsInPlay.concat([[name, this.state.height]]),
+      height: this.state.height + 1,
+    })
+  }
+
+  showElementsInPlay = () => {
+    let elementList = [];
+
+    for (let i = 0; i < this.state.elementsInPlay.length; i++) {
+      elementList.push(<Element
+        element={this.state.elementsInPlay[i]}
+        // clickFun = {() => {this.makeElementsInPlay(this.state.found[i])}}
+      />);
+    }
+
+    return elementList;
+  }
+
+  dragover_handler(ev) {
+    ev.preventDefault();
+    ev.dataTransfer.dropEffect = "move"
+  }
+
+  drop_handler(ev) {
+    ev.preventDefault();
+    // Get the id of the target and add the moved element to the target's DOM
+    const data = ev.dataTransfer.getData("application/my-app");
+    ev.target.appendChild(document.getElementById(data));
+  }
 
   render(){
     // if(! this.state.canPlay){
@@ -90,9 +127,15 @@ class Game extends Component{
     // }
     return (
       <>
-        <div class="main-game-box u-grow">
-          <div class="combining-area u-grow">
+        <div className="main-game-box u-grow">
+          <div className="element-list u-grow">
+            {this.showAllElements()}
+          </div>
+          <div className="combining-area u-grow" id = "target" ondrop="drop_handler(event)" ondragover="dragover_handler(event)">
             <MessageBox message={this.state.textMessage} />
+            {this.showElementsInPlay()}
+          </div>
+          <div className="chat u-grow">
             <div className="element-list">
               {this.state.found.map((element) => {
                 (<SingleElement element = {element}/>);
@@ -107,3 +150,11 @@ class Game extends Component{
 }
 
 export default Game;
+
+/*
+elementsInPlay.concat([[this.state.found[i], window.screenX, window.screenY]]);
+
+
+
+
+*/
