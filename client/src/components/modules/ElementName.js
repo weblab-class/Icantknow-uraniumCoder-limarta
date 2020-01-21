@@ -19,6 +19,7 @@ class ElementName extends Component{
         <div
           className="element-name"
           onClick = {() => {this.props.clickFun()}}
+          id = {this.props.key}
         >
           {this.props.element}
         </div>

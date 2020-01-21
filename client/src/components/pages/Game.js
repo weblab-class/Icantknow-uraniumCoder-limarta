@@ -18,13 +18,15 @@ class Game extends Component{
     this.state = {
       canPlay: false,
       found: ["air", "water", ],
-      textMessage: "adasds",
+      textMessage: "Hi!",
       elementsInPlay: [],
-      height: 1
+      elementnum: 0,
+      firstElement: ""
     }
   }
 
   componentDidMount(){
+    
     // Checks if game belongs to the logged in user
 
     get("/api/canplay", {gameId: this.props.gameId}).then((data) => {
@@ -41,6 +43,32 @@ class Game extends Component{
     get("/api/found", {gameId: this.props.gameId}).then((data) => {
       this.setState({found: data.found});
     });
+    
+  }
+
+  changeElementNum = () => {
+    this.setState({
+      elementnum: (this.state.elementnum+1)%2
+    })
+  }
+
+  getElementNum = () => {
+    return this.state.elementnum
+  }
+
+  setElement = (thing) => {
+    if (this.getElementNum() === 0) {
+      this.setState({
+        firstElement: thing,
+      })
+    }
+    else {
+      this.sendElements(this.state.firstElement, thing)
+      this.setState({
+        firstElement: "",
+        elementsInPlay: [],
+      })
+    }
   }
 
   sendElements = (el1, el2) => {
@@ -83,17 +111,21 @@ class Game extends Component{
     for (let i = 0; i < this.state.found.length; i++) {
       elementList.push(<ElementName
         element={this.state.found[i]}
-        clickFun = {() => {this.makeElementsInPlay(this.state.found[i])}}
+        clickFun = {() => {
+          this.makeElementsInPlay(this.state.found[i], this.getElementNum())
+          this.changeElementNum()
+          this.setElement(this.state.found[i])
+        }}
+        key = {this.state.found[i]+i}
       />);
     }
 
     return elementList;
   }
 
-  makeElementsInPlay = (name) => {
+  makeElementsInPlay = (name, position) => {
     this.setState({
-      elementsInPlay: this.state.elementsInPlay.concat([[name, this.state.height]]),
-      height: this.state.height + 1,
+      elementsInPlay: this.state.elementsInPlay.concat([[name, position]]),
     })
   }
 
@@ -103,23 +135,11 @@ class Game extends Component{
     for (let i = 0; i < this.state.elementsInPlay.length; i++) {
       elementList.push(<SingleElement
         element={this.state.elementsInPlay[i]}
-        // clickFun = {() => {this.makeElementsInPlay(this.state.found[i])}}
+        key = {this.state.elementsInPlay[i][0]+i}
       />);
     }
 
     return elementList;
-  }
-
-  dragover_handler(ev) {
-    ev.preventDefault();
-    ev.dataTransfer.dropEffect = "move"
-  }
-
-  drop_handler(ev) {
-    ev.preventDefault();
-    // Get the id of the target and add the moved element to the target's DOM
-    const data = ev.dataTransfer.getData("application/my-app");
-    ev.target.appendChild(document.getElementById(data));
   }
 
   render(){
@@ -132,9 +152,11 @@ class Game extends Component{
           <div className="element-list u-grow">
             {this.showAllElements()}
           </div>
-          <div className="combining-area u-grow" id = "target" ondrop="drop_handler(event)" ondragover="dragover_handler(event)">
+          <div className="center-of-page u-grow" id = "target">
             <MessageBox message={this.state.textMessage} />
-            {this.showElementsInPlay()}
+            <div className="combining-area">
+              {this.showElementsInPlay()}
+            </div>
           </div>
           <div className="chat u-grow">
             <div className="element-list">
@@ -153,9 +175,5 @@ class Game extends Component{
 export default Game;
 
 /*
-elementsInPlay.concat([[this.state.found[i], window.screenX, window.screenY]]);
-
-
-
 
 */
