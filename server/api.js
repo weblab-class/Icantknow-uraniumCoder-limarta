@@ -156,7 +156,12 @@ router.post("/newElement", (req, res) => {
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
-
+//Temporary get request:
+router.get("/games", (req,res)=>{
+  Game.find({}).then((game)=>{
+    res.send(game)
+  })
+})
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);

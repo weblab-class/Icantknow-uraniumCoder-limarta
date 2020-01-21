@@ -13,13 +13,17 @@ class Find extends Component{
     }
   }
   componentDidMount(){
-        get("/api/games").then((games)=>this.setState({games:games}))
-        mainGam
+    let gameId = "5e276c98a47e9303ac4d462c";
+    get("/api/found", {gameId:gameId}).then((games)=>{
+      this.setState({games:games})
+    });
   }
   render(){
     let gameBlock = "No available games"
-    if(this.state.games.length!==0){
-        gameBlock = this.state.games.map((game)=><FindGameBlock data={this.state.games}/>)
+    console.log("Render find page")
+    console.log(this.state.games)
+    if(this.state.games.length !== 0){
+        // gameBlock = this.state.games.map((game)=><FindGameBlock data={this.state.games}/>)
     }
 
     return (<div>
