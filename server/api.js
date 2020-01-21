@@ -224,8 +224,11 @@ router.get("/found", (req, res) => {
 
 router.post("/newElement", (req, res) => {
   if(req.user){
-    PlayGame.update({template: req.body.gameId, player: req.user._id}, {$push: {createdElements: req.body.element}});
-    res.send(PlayGame.findOne({template: req.body.gameId, player: req.user._id}));
+    PlayGame.findOne({template: req.body.gameId, player: req.user._id}).then((playGame) => {
+      playGame.createdElements = playGame.createdElements.push(req.body.element);
+      playGame.save();
+      res.send(playGame);
+    })
   } else {
     console.log("user not logged in cannot save progress");
   }
