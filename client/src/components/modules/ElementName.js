@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Link} from "@reach/router";
 
 import "./../pages/Game.css";
+import Element from "./../modules/Element";
 
 class ElementName extends Component{
   constructor(props){
@@ -15,7 +16,10 @@ class ElementName extends Component{
   render(){
     return (
       <>
-        <div className="element-name">
+        <div
+          className="element-name"
+          onClick = {() => {this.props.clickFun()}}
+        >
           {this.props.element}
         </div>
       </>
