@@ -7,6 +7,10 @@ import "./Game.css";
 
 import MessageBox from "./../modules/MessageBox";
 import SingleElement from "./../modules/SingleElement";
+<<<<<<< HEAD
+import ElementName from "./../modules/ElementName";
+=======
+>>>>>>> 09af23724afa7c6bdb9c7cb79007032ee2df2c9a
 
 /*
 @gameId : The ID of current game. Default is the main game
@@ -16,12 +20,16 @@ class Game extends Component{
     super(props);
     this.state = {
       canPlay: false,
-      found: [],
-      textMessage: "adasds",
+      found: ["air", "water", ],
+      textMessage: "Hi!",
+      elementsInPlay: [],
+      elementnum: 0,
+      firstElement: ""
     }
   }
 
   componentDidMount(){
+    
     // Checks if game belongs to the logged in user
 
     get("/api/canplay", {gameId: this.props.gameId}).then((data) => {
@@ -38,6 +46,32 @@ class Game extends Component{
     get("/api/found", {gameId: this.props.gameId}).then((data) => {
       this.setState({found: data.found});
     });
+    
+  }
+
+  changeElementNum = () => {
+    this.setState({
+      elementnum: (this.state.elementnum+1)%2
+    })
+  }
+
+  getElementNum = () => {
+    return this.state.elementnum
+  }
+
+  setElement = (thing) => {
+    if (this.getElementNum() === 0) {
+      this.setState({
+        firstElement: thing,
+      })
+    }
+    else {
+      this.sendElements(this.state.firstElement, thing)
+      this.setState({
+        firstElement: "",
+        elementsInPlay: [],
+      })
+    }
   }
 
   sendElements = (el1, el2) => {
@@ -73,16 +107,43 @@ class Game extends Component{
       }
     });
   }
-  //
-  // showAllElements = () => {
-  //   let elementList = [];
-  //
-  //   for (let i = 0; i < this.state.found.length; i++) {
-  //     elementList.push(<Element element={this.state.found[i]} />);
-  //   }
-  //
-  //   return elementList;
-  // }
+
+  showAllElements = () => {
+    let elementList = [];
+
+    for (let i = 0; i < this.state.found.length; i++) {
+      elementList.push(<ElementName
+        element={this.state.found[i]}
+        clickFun = {() => {
+          this.makeElementsInPlay(this.state.found[i], this.getElementNum())
+          this.changeElementNum()
+          this.setElement(this.state.found[i])
+        }}
+        key = {this.state.found[i]+i}
+      />);
+    }
+
+    return elementList;
+  }
+
+  makeElementsInPlay = (name, position) => {
+    this.setState({
+      elementsInPlay: this.state.elementsInPlay.concat([[name, position]]),
+    })
+  }
+
+  showElementsInPlay = () => {
+    let elementList = [];
+
+    for (let i = 0; i < this.state.elementsInPlay.length; i++) {
+      elementList.push(<SingleElement
+        element={this.state.elementsInPlay[i]}
+        key = {this.state.elementsInPlay[i][0]+i}
+      />);
+    }
+
+    return elementList;
+  }
 
   render(){
     // if(! this.state.canPlay){
@@ -90,9 +151,17 @@ class Game extends Component{
     // }
     return (
       <>
-        <div class="main-game-box u-grow">
-          <div class="combining-area u-grow">
+        <div className="main-game-box u-grow">
+          <div className="element-list u-grow">
+            {this.showAllElements()}
+          </div>
+          <div className="center-of-page u-grow" id = "target">
             <MessageBox message={this.state.textMessage} />
+            <div className="combining-area">
+              {this.showElementsInPlay()}
+            </div>
+          </div>
+          <div className="chat u-grow">
             <div className="element-list">
               {this.state.found.map((element) => {
                 (<SingleElement element = {element}/>);
@@ -107,3 +176,7 @@ class Game extends Component{
 }
 
 export default Game;
+
+/*
+
+*/

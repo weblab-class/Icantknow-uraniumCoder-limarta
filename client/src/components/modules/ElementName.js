@@ -15,7 +15,11 @@ class ElementName extends Component{
   render(){
     return (
       <>
-        <div className="element-name">
+        <div
+          className="element-name"
+          onClick = {() => {this.props.clickFun()}}
+          id = {this.props.key}
+        >
           {this.props.element}
         </div>
       </>

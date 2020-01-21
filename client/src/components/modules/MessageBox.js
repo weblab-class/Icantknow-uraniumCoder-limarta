@@ -11,10 +11,13 @@ class MessageBox extends Component{
   componentDidMount(){
 
   }
+
   render(){
     return (
       <>
-          <div className="message-box">{this.props.message}</div>
+          <div className="message-box">
+            {this.props.message}
+          </div>
       </>
     );
   }
