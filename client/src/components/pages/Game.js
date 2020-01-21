@@ -7,7 +7,10 @@ import "./Game.css";
 
 import MessageBox from "./../modules/MessageBox";
 import SingleElement from "./../modules/SingleElement";
+<<<<<<< HEAD
 import ElementName from "./../modules/ElementName";
+=======
+>>>>>>> 09af23724afa7c6bdb9c7cb79007032ee2df2c9a
 
 /*
 @gameId : The ID of current game. Default is the main game
@@ -84,12 +87,15 @@ class Game extends Component{
       //     }
       //   });
         if (!this.state.found.includes(obj.products)) {
-          this.setState({
-            found: this.state.found.concat(obj.products),
-            textMessage: "found stuff"
-          })
-        }
-        else {
+          post("api/newElement", {gameId: this.props.gameId, element: obj.products}).then((elements) =>{
+            this.setState({
+              found: this.state.found.concat(obj.products),
+              textMessage: "found stuff"
+            })
+          });
+          // give MessageBox something about
+        // }
+      } else {
           this.setState({
             textMessage: "already found this",
           })
@@ -156,6 +162,12 @@ class Game extends Component{
             </div>
           </div>
           <div className="chat u-grow">
+            <div className="element-list">
+              {this.state.found.map((element) => {
+                (<SingleElement element = {element}/>);
+              })}
+            </div>
+            asijdfiajdifjaoidfaisdfjo
           </div>
         </div>
       </>
