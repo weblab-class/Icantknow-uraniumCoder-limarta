@@ -3,7 +3,7 @@ import {Link} from "@reach/router";
 
 import "./../pages/Game.css";
 
-class Element extends Component{
+class SingleElement extends Component{
   constructor(props){
     super(props);
   }
@@ -30,4 +30,4 @@ class Element extends Component{
   }
 }
 
-export default Element;
+export default SingleElement;

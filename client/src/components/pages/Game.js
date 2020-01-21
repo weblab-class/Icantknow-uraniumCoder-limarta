@@ -6,8 +6,7 @@ import "../../utilities.css";
 import "./Game.css";
 
 import MessageBox from "./../modules/MessageBox";
-import Element from "./../modules/Element";
-import ElementName from "./../modules/ElementName";
+import SingleElement from "./../modules/Element";
 
 /*
 @gameId : The ID of current game. Default is the main game
@@ -26,19 +25,35 @@ class Game extends Component{
 
   componentDidMount(){
     // Checks if game belongs to the logged in user
-    Promise.all([
-      get("/api/whoami"),
-      get("/api/gameowner", {gameId: this.props.gameId}),
-    ]).then((allData) => {
-      if(allData[0] && allData[0]._id == allData[1]){
-        this.setState({canPlay: true});
-      }
+
+    get("/api/canplay", {gameId: this.props.gameId}).then(data) {
+      this.setState({canPlay : data.canPlay});
+    }
+    // Promise.all([
+    //   get("/api/whoami"),
+    //   get("/api/gameowner", {gameId: this.props.gameId}),
+    // ]).then((allData) => {
+    //   if(allData[0] && allData[0]._id == allData[1].ownerId){
+    //     this.setState({canPlay: true});
+    //   }
+    // });
+    get("/api/found", {gameId: this.props.gameId}).then((data) => {
+      this.setState({found: data.found});
     });
   }
 
   sendElements = (el1, el2) => {
-    get("/api/querycombine", {elements: [el1, el2]}).then(obj => {
-      if (obj) {
+    get("/api/querycombine", {elements: [el1, el2]}).then((obj) => {
+      // if (obj) {
+      //   get("/api/found", {gameId: this.props.gameId}).then((elements) => {
+      //     if(!elements.elements includes(obj.products)) {
+      //       post("api/newElement", {element: obj.products});
+      //       this.setState({textMessage: "found stuff"});
+      //     }
+      //     else {
+      //       this.setState({textMessage: "already found this"});
+      //     }
+      //   });
         if (!this.state.found.includes(obj.products)) {
           this.setState({
             found: this.state.found.concat(obj.products),
@@ -52,7 +67,7 @@ class Game extends Component{
         }
       } else {
         this.setState({
-          textMessage: "not yet",
+          textMessage: "not combinable",
         })
       }
     });
@@ -104,6 +119,9 @@ class Game extends Component{
   }
 
   render(){
+    // if(! this.state.canPlay){
+    //   <Redirect
+    // }
     return (
       <>
         <div className="main-game-box u-grow">
