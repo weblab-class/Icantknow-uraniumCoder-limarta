@@ -4,7 +4,7 @@ import NotFound from "./pages/NotFound.js";
 import Home from "./pages/Home.js";
 import NavBar from "./modules/NavBar.js";
 import Game from "./pages/Game.js";
-import FindGames from "./pages/FindGames.js";
+import Find from "./pages/Find.js";
 import Create from "./pages/Create.js";
 
 import "../utilities.css";
@@ -70,8 +70,8 @@ class App extends Component {
               <Home
                 path="/"
               />
-              <FindGames
-                path="/public"
+              <Find
+                path="/find"
                />
               <Game
                 path="/game/:gameId"

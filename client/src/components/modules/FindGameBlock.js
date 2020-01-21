@@ -19,4 +19,4 @@ class FindGameBlock extends Component {
     }
 }
 
-export default GameBlock;
+export default FindGameBlock;

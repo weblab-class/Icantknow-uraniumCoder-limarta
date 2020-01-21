@@ -1,9 +1,10 @@
 import React, {Component} from "react";
 import {Redirect} from "@reach/router";
+import FindGameBlock from "../modules/FindGameBlock.js";
+// import "../modules/FindGameBlock.css";
 import "../../utilities.css";
 import {get} from "../../utilities.js";
-
-class FindGames extends Component{
+class Find extends Component{
   constructor(props){
     super(props);
     this.state = {
@@ -15,7 +16,7 @@ class FindGames extends Component{
   }
   render(){
     let gameBlock = "No available games"
-    if(games.length!==0){
+    if(this.state.games.length!==0){
         gameBlock = this.state.games.map((game)=><FindGameBlock data={this.state.games}/>)
     }
 
@@ -26,4 +27,4 @@ class FindGames extends Component{
   }
 }
 
-export default FindGames;
+export default Find;
