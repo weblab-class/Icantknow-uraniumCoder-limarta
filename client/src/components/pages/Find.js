@@ -9,16 +9,17 @@ class Find extends Component{
     super(props);
     this.state = {
         games : []
+        mainGame : null
     }
   }
   componentDidMount(){
         get("/api/games").then((games)=>this.setState({games:games}))
+        mainGam
   }
   render(){
     let gameBlock = "No available games"
     if(this.state.games.length!==0){
-        gameBlock = this.state.games
-        // gameBlock = this.state.games.map((game)=><FindGameBlock data={this.state.games}/>)
+        gameBlock = this.state.games.map((game)=><FindGameBlock data={this.state.games}/>)
     }
 
     return (<div>
