@@ -44,6 +44,7 @@ class SingleElement extends Component{
         }} id = {this.props.key}>
           {this.props.element[0]}
         </div>
+        </div>
       </>
     );
   }

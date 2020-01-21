@@ -9,6 +9,7 @@
 require("dotenv").config();
 const mathUtils = require("./mathUtils.js");
 const mainGame = require("../MainGame.js");
+const mainGameId = process.env.mainGameId;
 
 const express = require("express");
 
@@ -48,12 +49,15 @@ router.post("/logout", auth.logout);
 router.get("/whoami", (req, res) => {
   if (!req.user) {
     // not logged in
-    return res.send({});
+    res.send({});
   }
 
   res.send(req.user);
 });
 
+router.get("/maingame", (req, res) => {
+  res.send({gameId: mainGameId});
+});
 router.post("/initsocket", (req, res) => {
   // do nothing if user not logged in
   if (req.user) socket.addUser(req.user, socket.getSocketFromSocketID(req.body.socketid));
