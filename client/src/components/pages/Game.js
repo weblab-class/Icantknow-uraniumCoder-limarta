@@ -6,7 +6,7 @@ import "../../utilities.css";
 import "./Game.css";
 
 import MessageBox from "./../modules/MessageBox";
-import SingleElement from "./../modules/Element";
+import SingleElement from "./../modules/SingleElement";
 
 /*
 @gameId : The ID of current game. Default is the main game
@@ -24,9 +24,9 @@ class Game extends Component{
   componentDidMount(){
     // Checks if game belongs to the logged in user
 
-    get("/api/canplay", {gameId: this.props.gameId}).then(data) {
+    get("/api/canplay", {gameId: this.props.gameId}).then((data) => {
       this.setState({canPlay : data.canPlay});
-    }
+    });
     // Promise.all([
     //   get("/api/whoami"),
     //   get("/api/gameowner", {gameId: this.props.gameId}),
@@ -42,7 +42,7 @@ class Game extends Component{
 
   sendElements = (el1, el2) => {
     get("/api/querycombine", {elements: [el1, el2]}).then((obj) => {
-      // if (obj) {
+      if (obj) {
       //   get("/api/found", {gameId: this.props.gameId}).then((elements) => {
       //     if(!elements.elements includes(obj.products)) {
       //       post("api/newElement", {element: obj.products});
@@ -61,7 +61,7 @@ class Game extends Component{
           });
           // give MessageBox something about
         // }
-        else {
+      } else {
           this.setState({
             textMessage: "already found this",
           })
@@ -96,7 +96,7 @@ class Game extends Component{
             <div className="element-list">
               {this.state.found.map((element) => {
                 (<SingleElement element = {element}/>);
-              }}
+              })}
             </div>
             asijdfiajdifjaoidfaisdfjo
           </div>
