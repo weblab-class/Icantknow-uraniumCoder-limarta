@@ -5,8 +5,9 @@ import {get, post} from "../../utilities.js";
 import "../../utilities.css";
 import "./Game.css";
 
-import MessageBox from "./../modules/MessageBox";
-import SingleElement from "./../modules/SingleElement";
+import MessageBox from "../modules/MessageBox";
+import SingleElement from "../modules/SingleElement";
+import ElementName from "../modules/ElementName";
 
 /*
 @gameId : The ID of current game. Default is the main game
@@ -100,7 +101,7 @@ class Game extends Component{
     let elementList = [];
 
     for (let i = 0; i < this.state.elementsInPlay.length; i++) {
-      elementList.push(<Element
+      elementList.push(<SingleElement
         element={this.state.elementsInPlay[i]}
         // clickFun = {() => {this.makeElementsInPlay(this.state.found[i])}}
       />);

@@ -7,6 +7,7 @@
 |
 */
 const mathUtils = require("./mathUtils.js");
+const mainGame = require("../MainGame.js");
 
 const express = require("express");
 
@@ -62,9 +63,7 @@ router.get("/querycombine", (req, res) => {
 
   let selected = req.query.elements;
   Game.find({_id: req.query.gameId}).then((game) => {
-    return game.reactionRules;
-  }).then((ruleIds) => {
-    return Rule.find({_id: {$in : ruleIds}, reactants: {$all: selected, $size: selected.length}})
+    return Rule.find({_id: {$in : game.reactionRules}, reactants: {$all: selected, $size: selected.length}})
   }).then((applicableRules) => {
     if(!applicableRules){
       res.send({});
@@ -87,18 +86,71 @@ router.get("/querycombine", (req, res) => {
 
 });
 
+router.get("/createMainGame", (req, res) => {
+  console.log("creating main game!!!!");
+  res.send({"msg": "creating main game"});
+    // const water = new Element({
+    //   name: "water",
+    // });
+    // water.save();
+    // const air = new Element({
+    //   name: "air",
+    // });
+    // air.save();
+    // const steam = new Element({
+    //   name: "steam",
+    // });
+    // steam.save();
+    const makeSteam = new Rule({
+      reactants: ["water", "air"],
+      products: ["steam"],
+    })
+    makeSteam.save();
+    const basicGame = new Game({
+      owner: "mainGame",
+      reactionRules: [makeSteam._id],
+      startingElements: ["water", "air"],
+    });
+    basicGame.save();
+    // res.send({"msg": "successfully initiated main game!"});
+});
+
 router.get("/canPlay", (req, res) => {
   res.send({canPlay: true});
 });
 
 router.get("/found", (req, res) => {
-  PlayGame.find({template: req.query.gameId, player: req.user._id}).then((game) => {
-    res.send({found: game.createdElements});
-  });
+  if(!req.user){
+    Game.find({_id: req.query.gameId}).then((game) => {
+      res.send({found: ["air", "water",]});
+    });
+  } else{
+    console.log("logged in user wants to play");
+    PlayGame.find({template: req.query.gameId, player: req.user._id}).then((game) => {
+      console.log(game);
+      if(game.length == 0){
+        console.log("creating new game");
+        Game.find({_id: req.query.gameId}).then((template) => {
+          const newPlay = new PlayGame({
+            template: req.query.gameId,
+            owner: req.user._id,
+            createdElements : template.startingElements,
+          });
+          newPlay.save();
+          res.send({found: newPlay.createdElements});
+        });
+      } else {
+        console.log("Found Game");
+        res.send({found: game.createdElements});
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
 });
 
 router.post("/newElement", (req, res) => {
-  
+
 });
 
 // |------------------------------|

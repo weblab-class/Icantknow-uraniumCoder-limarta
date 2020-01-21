@@ -21,7 +21,7 @@ class SingleElement extends Component{
   render(){
     return (
       <>
-        <div className="element-box" draggable="true" ondragstart="dragstart_handler(event)">
+        <div className="element-box" draggable="true" onDragStart="dragstart_handler(event)">
           {this.props.element[0]}
         </div>
         <style>left: 100px; top 100px;</style>
