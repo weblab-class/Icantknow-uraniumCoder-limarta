@@ -130,7 +130,7 @@ router.get("/found", (req, res) => {
       console.log(playGame);
       if(playGame.length == 0){
         console.log("creating new game");
-        Game.find({_id: req.query.gameId}).then((template) => {
+        Game.findOne({_id: req.query.gameId}).then((template) => {
           const newPlay = new PlayGame({
             template: req.query.gameId,
             player: req.user._id,
