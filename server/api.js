@@ -16,6 +16,7 @@ const User = require("./models/user");
 const Game = require("./models/game");
 const Rule = require("./models/rule");
 const Element = require("./models/element");
+const PlayGame = require("./models/game");
 
 // import authentication library
 const auth = require("./auth");
@@ -83,6 +84,10 @@ router.get("/querycombine", (req, res) => {
   // } else {
   //   res.send({});
   // }
+
+});
+
+router.get("/gameowner", (req, res) => {
 
 });
 

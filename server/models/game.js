@@ -4,7 +4,6 @@ const GameSchema = new mongoose.Schema({
   _id: String,
   owner: String,
   reactionRules: [String],
-  createdElements: [String],
 });
 
 // compile model from schema
