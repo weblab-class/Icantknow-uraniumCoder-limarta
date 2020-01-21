@@ -23,16 +23,20 @@ class Game extends Component{
 
   componentDidMount(){
     // Checks if game belongs to the logged in user
-    Promise.all([
-      get("/api/whoami"),
-      get("/api/gameowner", {gameId: this.props.gameId}),
-    ]).then((allData) => {
-      if(allData[0] && allData[0]._id == allData[1].ownerId){
-        this.setState({canPlay: true});
-      }
-    });
-    get("/api/found", {gameId: this.props.gameId}).then((elements) => {
-      this.setState({found: elements});
+
+    get("/api/canplay", {gameId: this.props.gameId}).then(data) {
+      this.setState({canPlay : data.canPlay});
+    }
+    // Promise.all([
+    //   get("/api/whoami"),
+    //   get("/api/gameowner", {gameId: this.props.gameId}),
+    // ]).then((allData) => {
+    //   if(allData[0] && allData[0]._id == allData[1].ownerId){
+    //     this.setState({canPlay: true});
+    //   }
+    // });
+    get("/api/found", {gameId: this.props.gameId}).then((data) => {
+      this.setState({found: data.found});
     });
   }
 
@@ -49,7 +53,7 @@ class Game extends Component{
       //     }
       //   });
         if (!this.state.found.includes(obj.products)) {
-          post("api/newElement", {element: obj.products}).then(() =>{
+          post("api/newElement", {gameId: this.props.gameId, element: obj.products}).then((elements) =>{
             this.setState({
               found: this.state.found.concat(obj.products),
               textMessage: "found stuff"

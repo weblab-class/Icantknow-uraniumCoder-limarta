@@ -16,7 +16,7 @@ const User = require("./models/user");
 const Game = require("./models/game");
 const Rule = require("./models/rule");
 const Element = require("./models/element");
-const PlayGame = require("./models/game");
+const PlayGame = require("./models/playGame");
 
 // import authentication library
 const auth = require("./auth");
@@ -87,8 +87,18 @@ router.get("/querycombine", (req, res) => {
 
 });
 
-router.get("/gameowner", (req, res) => {
+router.get("/canPlay", (req, res) => {
+  res.send({canPlay: true});
+});
 
+router.get("/found", (req, res) => {
+  PlayGame.find({template: req.query.gameId, player: req.user._id}).then((game) => {
+    res.send({found: game.createdElements});
+  });
+});
+
+router.post("/newElement", (req, res) => {
+  
 });
 
 // |------------------------------|
