@@ -30,6 +30,7 @@ class SingleElement extends Component{
   render(){
     return (
       <>
+        <div className="element-box" draggable="true" onDragStart="dragstart_handler(event)">
         <div style={{
           position: "absolute",
           left: this.getX(),

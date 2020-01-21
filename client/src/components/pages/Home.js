@@ -3,6 +3,7 @@ import {Redirect} from "@reach/router";
 import Banner from "../modules/Banner.js";
 import MainGameButton from "../modules/MainGameButton.js";
 import FindGamesButton from "../modules/FindGamesButton.js";
+import {get} from "../../utilities.js"
 
 import "../modules/Banner.css";
 import "../../utilities.css";
@@ -21,6 +22,9 @@ class Home extends Component {
   startCreating = () => {
     this.setState({redirect : "create"});
   }
+  mainGame = () => {
+    get("/api/createMainGame").then(() => {console.log("success");}).catch((err) => {console.log("main game not created");});
+  }
   render(){
     if(this.state.redirect){
       return (<Redirect to="/create"/>);
@@ -33,6 +37,7 @@ class Home extends Component {
           </div>
           <div className = "u-flex-justifyCenter u-flex-alignCenter">
             <button className = "u-textbox" onClick = {this.startCreating}> Start Creating </button>
+            <button className = "u-textbox" onClick = {this.mainGame}> Initiate Main Game </button>
           </div>
           <div className = " u-grow u-flexRow">
             <div className = "u-grow" >

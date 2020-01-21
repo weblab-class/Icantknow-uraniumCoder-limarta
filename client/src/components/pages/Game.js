@@ -5,12 +5,9 @@ import {get, post} from "../../utilities.js";
 import "../../utilities.css";
 import "./Game.css";
 
-import MessageBox from "./../modules/MessageBox";
-import SingleElement from "./../modules/SingleElement";
-<<<<<<< HEAD
-import ElementName from "./../modules/ElementName";
-=======
->>>>>>> 09af23724afa7c6bdb9c7cb79007032ee2df2c9a
+import MessageBox from "../modules/MessageBox";
+import SingleElement from "../modules/SingleElement";
+import ElementName from "../modules/ElementName";
 
 /*
 @gameId : The ID of current game. Default is the main game

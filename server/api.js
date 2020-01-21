@@ -6,7 +6,9 @@
 | This file defines the routes for your server.
 |
 */
+require("dotenv").config();
 const mathUtils = require("./mathUtils.js");
+const mainGame = require("../MainGame.js");
 
 const express = require("express");
 
@@ -62,9 +64,7 @@ router.get("/querycombine", (req, res) => {
 
   let selected = req.query.elements;
   Game.find({_id: req.query.gameId}).then((game) => {
-    return game.reactionRules;
-  }).then((ruleIds) => {
-    return Rule.find({_id: {$in : ruleIds}, reactants: {$all: selected, $size: selected.length}})
+    return Rule.find({_id: {$in : game.reactionRules}, reactants: {$all: selected, $size: selected.length}})
   }).then((applicableRules) => {
     if(!applicableRules){
       res.send({});
@@ -87,18 +87,151 @@ router.get("/querycombine", (req, res) => {
 
 });
 
+// router.get("/createMainGame", (req, res) => {
+//   console.log("creating main game!!!!");
+//   res.send({"msg": "creating main game"});
+//     // const water = new Element({
+//     //   name: "water",
+//     // });
+//     // water.save();
+//     // const air = new Element({
+//     //   name: "air",
+//     // });
+//     // air.save();
+//     // const steam = new Element({
+//     //   name: "steam",
+//     // });
+//     // // steam.save();
+//
+//
+//     const makeSteam = new Rule({
+//       reactants: ["water", "air"],
+//       products: ["steam"],
+//     })
+//     makeSteam.save();
+//
+//
+//     // Game.findOne({_id: "5e276c98a47e9303ac4d462c"}).then((games)=>{
+//     //   console.log(games);
+//     //   games.reactionRules = game.reactionRules.append("5e2778ef535ada1b94692a6c");
+//     // });
+//     //
+//     // Game.update({_id: "5e276c98a47e9303ac4d462c"}, {$set: {reactionRules: ["5e2778ef535ada1b94692a6c"]}});
+//
+//     const makeWind = new Rule({
+//       reactants: ["air", "air"],
+//       products: ["wind"],
+//     })
+//     makeWind.save();
+//     // Game.update({_id: process.env.mainGameId}, {$push: {reactionRules: makeWind._id}});
+//     const makeStone = new Rule({
+//       reactants: ["water", "fire"],
+//       products: ["stone"],
+//     })
+//     makeStone.save();
+//     // Game.update({_id: process.env.mainGameId}, {$push: {reactionRules: makeStone._id}});
+//     const makeFire = new Rule({
+//       reactants: ["stone", "stone"],
+//       products: ["fire"],
+//     })
+//     makeFire.save();
+//     // Game.update({_id: process.env.mainGameId}, {$push: {reactionRules: makeFire._id}});
+//     const makePot = new Rule({
+//       reactants: ["fire", "stone"],
+//       products: ["pot"],
+//     })
+//     makePot.save();
+//     // Game.update({_id: process.env.mainGameId}, {$push: {reactionRules: makePot._id}});
+//     const makeFilled = new Rule({
+//       reactants: ["water", "pot"],
+//       products: ["filled pot"],
+//     })
+//     makeFilled.save();
+//     // Game.update({_id: process.env.mainGameId}, {$push: {reactionRules: makeFilled._id}});
+//     const makeBoiling = new Rule({
+//       reactants: ["fire", "filled pot"],
+//       products: ["boiling pot"],
+//     })
+//     makeBoiling.save();
+//     // Game.update({_id: process.env.mainGameId}, {$push: {reactionRules: makeBoiling._id}});
+//     const makeHurricane = new Rule({
+//       reactants: ["steam", "wind"],
+//       products: ["hurricane"],
+//     })
+//     makeHurricane.save();
+//     // Game.update({_id: process.env.mainGameId}, {$push: {reactionRules: makeHurricane._id}});
+//     const makeStorm = new Rule({
+//       reactants: ["hurricane", "stone"],
+//       products: ["stone storm"],
+//     })
+//     makeStorm.save();
+//     // Game.update({_id: process.env.mainGameId}, {$push: {reactionRules: makeStorm._id}});
+//     const makeMagic = new Rule({
+//       reactants: ["stone storm", "boiling pot"],
+//       products: ["magic"],
+//     })
+//     makeMagic.save()
+//     //
+//     // Game.update({_id: process.env.mainGameId}, {$push: {reactionRules: makeMagic._id}});
+//
+//
+//
+//     const basicGame = new Game({
+//       owner: "mainGame",
+//       reactionRules: [makeSteam._id, makeWind._id],
+//       startingElements: ["water", "air"],
+//     });
+//     basicGame.save();
+//
+//
+//     // res.send({"msg": "successfully initiated main game!"});
+// });
+
 router.get("/canPlay", (req, res) => {
   res.send({canPlay: true});
 });
 
 router.get("/found", (req, res) => {
-  PlayGame.find({template: req.query.gameId, player: req.user._id}).then((game) => {
-    res.send({found: game.createdElements});
-  });
+  if(!req.user){
+    Game.find({_id: req.query.gameId}).then((game) => {
+      res.send({found: ["air", "water",]});
+    });
+  } else{
+    console.log("logged in user wants to play");
+    PlayGame.find({template: req.query.gameId, player: req.user._id}).then((playGame) => {
+      console.log(playGame);
+      if(playGame.length == 0){
+        console.log("creating new game");
+        Game.findOne({_id: req.query.gameId}).then((template) => {
+          const newPlay = new PlayGame({
+            template: req.query.gameId,
+            player: req.user._id,
+            createdElements : template.startingElements,
+          });
+          newPlay.save();
+          res.send({found: newPlay.createdElements});
+        });
+      } else {
+        console.log("Found Game");
+        console.log(playGame[0].createdElements);
+        res.send({found: playGame[0].createdElements});
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
 });
 
 router.post("/newElement", (req, res) => {
-  
+  if(req.user){
+    PlayGame.findOne({template: req.body.gameId, player: req.user._id}).then((playGame) => {
+      playGame.createdElements = playGame.createdElements.push(req.body.element);
+      playGame.save();
+      res.send(playGame);
+    })
+  } else {
+    console.log("user not logged in cannot save progress");
+  }
 });
 
 // |------------------------------|

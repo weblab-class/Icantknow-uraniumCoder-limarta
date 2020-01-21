@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const GameSchema = new mongoose.Schema({
-  _id: String,
   owner: String,
   reactionRules: [String],
+  startingElements: [String],
 });
 
 // compile model from schema
