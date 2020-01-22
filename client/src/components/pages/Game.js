@@ -139,7 +139,7 @@ class Game extends Component{
         <div className="main-game-box u-grow">
           <div className="element-list u-grow">
             {this.state.found.map((element, index) => {
-              (<ElementName
+              return (<ElementName
                 element = {element}
                 clickFun = {() => {
                   this.makeElementsInPlay(element, this.getElementNum());
@@ -154,14 +154,14 @@ class Game extends Component{
             <MessageBox message={this.state.textMessage} />
             <div className="combining-area">
               {this.state.elementsInPlay.map((element) => {
-                (<SingleElement element = {element} key = {element[0] + 1});
+                return (<SingleElement element = {element} key = {element[0] + 1}/>);
               })}
             </div>
           </div>
           <div className="chat u-grow">
             <div className="element-list">
               {this.state.found.map((element) => {
-                (<SingleElement element = {element}/>);
+                return (<SingleElement element = {element}/>);
               })}
             </div>
             asijdfiajdifjaoidfaisdfjo
