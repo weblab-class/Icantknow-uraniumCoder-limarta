@@ -6,12 +6,13 @@ import NavBar from "./modules/NavBar.js";
 import Game from "./pages/Game.js";
 import FindGames from "./pages/FindGames.js";
 import Create from "./pages/Create.js";
+import LogInPrompt from "./pages/LogInPrompt.js";
 
 import "../utilities.css";
 
 import { socket } from "../client-socket.js";
 
-import { get, post } from "../utilities";
+import { get, post } from "../utilities.js";
 
 /**
  * Define the "App" component as a class.
@@ -78,6 +79,9 @@ class App extends Component {
               />
               <Create
                 path="/create"
+              />
+              <LogInPrompt
+                path="/login"
               />
               <NotFound default/>
             </Router>

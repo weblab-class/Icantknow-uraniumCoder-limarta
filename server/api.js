@@ -39,9 +39,9 @@ router.get("/test", (req, res) => {
   res.send({msg:"good test"});
 });
 router.post("/login", (req, res) => {
-  console.log("Trying to log in");
+  // console.log("Trying to log in");
   auth.login (req, res);
-  console.log("Tried to log in");
+  // console.log("Tried to log in");
 });
 
 router.post("/login", auth.login);
@@ -50,9 +50,9 @@ router.get("/whoami", (req, res) => {
   if (!req.user) {
     // not logged in
     res.send({});
+  }else {
+    res.send(req.user);
   }
-
-  res.send(req.user);
 });
 
 router.get("/maingame", (req, res) => {
@@ -191,8 +191,17 @@ router.get("/querycombine", (req, res) => {
 //     // res.send({"msg": "successfully initiated main game!"});
 // });
 
-router.get("/canPlay", (req, res) => {
-  res.send({canPlay: true});
+router.get("/canplay", (req, res) => {
+  console.log("received canplay request");
+  if(req.user){
+    console.log("user can play 0");
+    res.send({canPlay: true});
+    console.log("user can play");
+  } else {
+    res.send({canPlay: false});
+    console.log("not logged in");
+    console.log(req.user);
+  }
 });
 
 router.get("/found", (req, res) => {

@@ -5,9 +5,10 @@ import {get, post} from "../../utilities.js";
 import "../../utilities.css";
 import "./Game.css";
 
-import MessageBox from "../modules/MessageBox";
-import SingleElement from "../modules/SingleElement";
-import ElementName from "../modules/ElementName";
+import MessageBox from "../modules/MessageBox.js";
+import SingleElement from "../modules/SingleElement.js";
+import ElementName from "../modules/ElementName.js";
+import LogInPrompt from "./LogInPrompt.js"
 
 /*
 @gameId : The ID of current game. Default is the main game
@@ -26,9 +27,9 @@ class Game extends Component{
   }
 
   componentDidMount(){
-    
-    // Checks if game belongs to the logged in user
 
+    // Checks if game belongs to the logged in user
+    console.log("component mounted lol");
     get("/api/canplay", {gameId: this.props.gameId}).then((data) => {
       this.setState({canPlay : data.canPlay});
     });
@@ -43,12 +44,12 @@ class Game extends Component{
     get("/api/found", {gameId: this.props.gameId}).then((data) => {
       this.setState({found: data.found});
     });
-    
+
   }
 
   changeElementNum = () => {
     this.setState({
-      elementnum: (this.state.elementnum+1)%2
+      elementnum: (this.state.elementnum+1)
     })
   }
 
@@ -129,33 +130,32 @@ class Game extends Component{
     })
   }
 
-  showElementsInPlay = () => {
-    let elementList = [];
-
-    for (let i = 0; i < this.state.elementsInPlay.length; i++) {
-      elementList.push(<SingleElement
-        element={this.state.elementsInPlay[i]}
-        key = {this.state.elementsInPlay[i][0]+i}
-      />);
-    }
-
-    return elementList;
-  }
-
   render(){
-    // if(! this.state.canPlay){
-    //   <Redirect
-    // }
+    if(! this.state.canPlay){
+     return (<LogInPrompt/>);
+    }
     return (
       <>
         <div className="main-game-box u-grow">
           <div className="element-list u-grow">
-            {this.showAllElements()}
+            {this.state.found.map((element, index) => {
+              (<ElementName
+                element = {element}
+                clickFun = {() => {
+                  this.makeElementsInPlay(element, this.getElementNum());
+                  this.changeElementNum();
+                  this.setElement(element);
+                }}
+                key = {element + index}
+              />);
+            })}
           </div>
           <div className="center-of-page u-grow" id = "target">
             <MessageBox message={this.state.textMessage} />
             <div className="combining-area">
-              {this.showElementsInPlay()}
+              {this.state.elementsInPlay.map((element) => {
+                (<SingleElement element = {element} key = {element[0] + 1});
+              })}
             </div>
           </div>
           <div className="chat u-grow">
