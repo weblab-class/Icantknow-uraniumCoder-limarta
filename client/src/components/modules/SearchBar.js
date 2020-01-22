@@ -1,23 +1,50 @@
 import React, {Component} from "react";
-import {get} from "../../utilities.js"
+import {get,post} from "../../utilities.js"
 /**
  * @typedef ContentObject
- * @property {string} _id of the game
- * @property {string} name of the game
- * @property {string} content of th game
+ * @property onSubmit
  */
-class GameCard extends Component {
+class SearchBar extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+          value : ""
+        }
     }
+    handleChange = (event) => {
+      this.setState({
+        value: event.target.value,
+      });
+    };
+    handleSubmit = (event) => {
+      event.preventDefault();
+      this.props.onSubmit && this.props.onSubmit(this.state.value);
+      this.setState({
+        value: "",
+      });
+    };
+    componentDidMount(){
+    }
+
     render() {
       return (
-        <div>
-          <p>{this.props.name}</p>
-          {/* <img src="" alt="Icon"/> */}
+      <div>
+        <input
+          type="text"
+          placeholder={this.props.defaultText}
+          value={this.state.value}
+          onChange={this.handleChange}
+        />
+        <button
+          type="submit"
+          value="Submit"
+          onClick={this.handleSubmit}
+        >
+          Search
+        </button>
         </div>
       );
     }
 }
 
-export default GameCard;
+export default SearchBar;
