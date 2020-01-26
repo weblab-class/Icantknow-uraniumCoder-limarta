@@ -5,3 +5,7 @@ let combinations = {
     "earth_earth": "rock",
     "air_earth": "dust",
 }
+
+module.exports = {
+  combinations,
+}

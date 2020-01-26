@@ -35,14 +35,23 @@ function getOrCreateUser(user) {
 
 function login(req, res) {
   verify(req.body.token)
-    .then((user) => getOrCreateUser(user))
+    .then((user) => {
+      console.log(user);
+      return getOrCreateUser(user);
+      // console.log("created user in auth");
+      // console.log(user);
+      // console.log("login step 1 in auth sent");
+    })
     .then((user) => {
       // persist user in the session
       req.session.user = user;
       res.send(user);
+      console.log(user);
+      console.log("login step 2 in auth sent")
     })
     .catch((err) => {
       console.log(`Failed to log in: ${err}`);
+      console.log("login error in auth");
       res.status(401).send({ err });
     });
 }

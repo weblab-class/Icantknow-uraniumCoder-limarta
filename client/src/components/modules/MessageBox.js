@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import {Link} from "@reach/router";
 
+import "./../pages/Game.css";
+
 class MessageBox extends Component{
   constructor(props){
     super(props);
@@ -9,10 +11,13 @@ class MessageBox extends Component{
   componentDidMount(){
 
   }
+
   render(){
     return (
       <>
-          <h4>{this.props.message}</h4>
+          <div className="message-box">
+            {this.props.message}
+          </div>
       </>
     );
   }

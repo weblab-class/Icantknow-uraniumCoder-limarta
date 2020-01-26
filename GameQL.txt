@@ -1,0 +1,19 @@
+Game{
+gameId String,
+ownerId String,
+reactionRules String[],
+createdElements String[],
+reactionHistory String[], (for later)
+}
+
+Rule{
+ruleId String,
+reactants Element[],
+products Element[]
+}
+
+Element{
+elementId String,
+elementName String,
+elementImage Image, (for later)
+}
