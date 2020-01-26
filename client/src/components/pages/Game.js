@@ -5,22 +5,24 @@ import {get, post} from "../../utilities.js";
 import "../../utilities.css";
 import "./Game.css";
 
-import MessageBox from "./MessageBox";
-import Element from "./../modules/Element";
+import ItemBar from "../modules/ItemBar.js";
 
-/*
-@gameId : The ID of current game. Default is the main game
+/**
+ *
+ * Proptypes
+ *
+ * @property {String} user_id
 */
 class Game extends Component{
   constructor(props){
     super(props);
     this.state = {
       canPlay: false,
-      found: ["air", "earth"],
+      items: [],
       textMessage: "adasds",
     }
   }
-  
+
   componentDidMount(){
     // Checks if game belongs to the logged in user
     Promise.all([
@@ -69,8 +71,11 @@ class Game extends Component{
   render(){
     return (
       <>
-        <MessageBox message={this.state.textMessage} />
-        {this.showAllElements()}
+      <div>
+      <ItemBar items={[]} item_urls={[]}/>
+      {/* <MessageBox message={this.state.textMessage} /> */}
+      {/* {this.showAllElements()} */}
+      </div>
       </>
     );
   }

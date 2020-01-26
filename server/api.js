@@ -8,15 +8,12 @@
 */
 
 const express = require("express");
-const multer = require("multer")
 
 // import models so we can interact with the database
 const User = require("./models/user");
-const Photo = require("./models/photos");
 
 // import authentication library
 const auth = require("./auth");
-const upload = multer({dest: 'uploads/'})
 // api endpoints: all these paths will be prefixed with "/api/"
 const router = express.Router();
 

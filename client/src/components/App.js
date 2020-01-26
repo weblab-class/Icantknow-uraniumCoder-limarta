@@ -64,7 +64,7 @@ class App extends Component {
             path="/public"
            />
           <Game
-            path="/game/:gameId"
+            path="/game"
           />
           <Create
             path="/create"
