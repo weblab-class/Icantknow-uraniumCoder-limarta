@@ -1,24 +1,33 @@
 import React, {Component} from "react";
 import {Redirect} from "@reach/router";
 import {get, post} from "../../utilities.js";
-
 import "../../utilities.css";
 import "./Game.css";
-
 import ItemBar from "../modules/ItemBar.js";
+
+
+const TEST_GAME = {
+  game_id : 0,
+  user_id : 0,
+  items : ["water","fire","air"],
+  rules : {"water,fire":"air"}
+};
 
 /**
  *
  * Proptypes
  *
  * @property {String} user_id
+ * @property {String} game_id
 */
+
 class Game extends Component{
   constructor(props){
     super(props);
     this.state = {
       canPlay: false,
-      items: [],
+      items: TEST_GAME.items,
+      rules: TEST_GAME.rules,
       textMessage: "adasds",
     }
   }
@@ -27,9 +36,7 @@ class Game extends Component{
 
     // Checks if game belongs to the logged in user
 
-    get("/api/canplay", {gameId: this.props.gameId}).then((data) => {
-      this.setState({canPlay : data.canPlay});
-    });
+    get("/api/canplay", {gameId: this.props.game_id}).then((data) => this.setState({canPlay : data.canPlay}));
     // Promise.all([
     //   get("/api/whoami"),
     //   get("/api/gameowner", {gameId: this.props.gameId}),
@@ -41,7 +48,6 @@ class Game extends Component{
     get("/api/found", {gameId: this.props.gameId}).then((data) => {
       this.setState({found: data.found});
     });
-
   }
 
   changeElementNum = () => {
@@ -144,12 +150,13 @@ class Game extends Component{
     // if(! this.state.canPlay){
     //   <Redirect
     // }
+    //
+    // {/* <MessageBox message={this.state.textMessage} /> */}
     return (
       <>
       <div>
-      <ItemBar items={[]} item_urls={[]}/>
-      {/* <MessageBox message={this.state.textMessage} /> */}
-      {/* {this.showAllElements()} */}
+      <h1>{this.props.game_id}</h1>
+      <ItemBar items={this.state.items} item_urls={this.state.items}/>
       </div>
       </>
     );

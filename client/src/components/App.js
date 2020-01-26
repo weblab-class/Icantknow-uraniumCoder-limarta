@@ -63,18 +63,10 @@ class App extends Component {
             />
           </div>
             <Router className = "u-flex u-grow">
-              <Home
-                path="/"
-              />
-              <FindGames
-                path="/public"
-               />
-              <Game
-                path="/game/:gameId"
-              />
-              <Create
-                path="/create"
-              />
+              <Home path="/"/>
+              <FindGames path="/public" />
+              <Game path="/game/:game_id"/>
+              <Create path="/create"/>
               <NotFound default/>
             </Router>
         </div>
