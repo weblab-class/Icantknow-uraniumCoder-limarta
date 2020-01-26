@@ -24,7 +24,7 @@ class Game extends Component{
   }
 
   componentDidMount(){
-    
+
     // Checks if game belongs to the logged in user
 
     get("/api/canplay", {gameId: this.props.gameId}).then((data) => {
@@ -41,7 +41,7 @@ class Game extends Component{
     get("/api/found", {gameId: this.props.gameId}).then((data) => {
       this.setState({found: data.found});
     });
-    
+
   }
 
   changeElementNum = () => {
