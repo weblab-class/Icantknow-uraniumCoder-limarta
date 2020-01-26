@@ -5,8 +5,8 @@ import "../../utilities.css"
  *
  * Proptypes
  *
- * @property {String} items lists each item name
- * @property {String} item_urls lists each item's image path
+ * @property {String} item_name each item name
+ * @property {String} item_url lists each item's image path
 */
 class ItemBar extends Component{
   constructor(props){
@@ -15,6 +15,8 @@ class ItemBar extends Component{
   render(){
     return (<>
       <div>
+      {this.props.item_name}
+      {this.props.item_url}
       </div>
     </>);
   }
