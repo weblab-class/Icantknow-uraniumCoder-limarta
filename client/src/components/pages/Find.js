@@ -27,9 +27,9 @@ class Find extends Component{
         //Rank games by number of players
       });
 
-      socket.on("recent", (data) => { //
-        //Update live based on player count
-      });
+      // socket.on("recent", (data) => { //
+      //   //Update live based on player count
+      // });
   }
   // componentDidUpdate(){
   //   //Rerender based on search results.
@@ -38,11 +38,11 @@ class Find extends Component{
     this.setState({games_viewed:this.state.games.filter((game) => {return game.name === value;})});
   }
   render(){
-    let gameBlock = "No available games"
-    console.log("Render find page")
-    console.log(this.state.games)
+    let gameBlock = "No available games";
+    console.log("Render find page");
+    console.log(this.state.games);
     if(this.state.games.length !== 0){
-        gameBlock = this.state.games_viewed.map((game)=><FindGameBlock data={this.state.games}/>)
+        gameBlock = this.state.games_viewed.map((game)=>(<FindGameBlock data={this.state.games}/>));
     }
 
     return (<div>
