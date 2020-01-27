@@ -1,20 +1,23 @@
 import React, {Component} from "react"
+import Item from "./Item.js"
 import "../../utilities.css"
 
 /**
  *
  * Proptypes
  *
- * @property {String} items lists each item name
- * @property {String} item_urls lists each item's image path
+ * @property {objects} items objects with attribute name and path
 */
 class ItemBar extends Component{
   constructor(props){
     super(props);
   }
   render(){
+    let items = this.props.items.map((item)=><Item name={item.name} path={item.path}/>)
     return (<>
       <div>
+      <h1>Item Bar</h1>
+      {items}
       </div>
     </>);
   }

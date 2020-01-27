@@ -1,15 +1,19 @@
 import React, {Component} from "react";
 import {Redirect} from "@reach/router";
 import {get, post} from "../../utilities.js";
+import Item from "../modules/Item.js";
+import ItemBar from "../modules/ItemBar.js";
+import Board from "../modules/Board.js";
+
 import "../../utilities.css";
 import "./Game.css";
-import ItemBar from "../modules/ItemBar.js";
-
 
 const TEST_GAME = {
   game_id : 0,
   user_id : 0,
-  items : ["water","fire","air"],
+  items : [{name:"water", path:"/"},{name:"fire", path:"/"},{name:"air",path:"/"}],
+  items_on_board : [{item:<Item name="water" path="/"/>,position:[0,0]},
+                    {item:<Item name="fire" path="/"/>,position:[10,10]}],
   rules : {"water,fire":"air"}
 };
 
@@ -27,6 +31,7 @@ class Game extends Component{
     this.state = {
       canPlay: false,
       items: TEST_GAME.items,
+      items_on_board: TEST_GAME.items_on_board,
       rules: TEST_GAME.rules,
       textMessage: "adasds",
     }
@@ -147,16 +152,12 @@ class Game extends Component{
   }
 
   render(){
-    // if(! this.state.canPlay){
-    //   <Redirect
-    // }
-    //
-    // {/* <MessageBox message={this.state.textMessage} /> */}
     return (
       <>
       <div>
       <h1>{this.props.game_id}</h1>
-      <ItemBar items={this.state.items} item_urls={this.state.items}/>
+      <ItemBar items={this.state.items}/>
+      <Board items={this.state.items_on_board}/>
       </div>
       </>
     );

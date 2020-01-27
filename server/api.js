@@ -8,9 +8,6 @@
 */
 require("dotenv").config();
 const mathUtils = require("./mathUtils.js");
-const mainGame = require("../MainGame.js");
-const mainGameId = process.env.mainGameId;
-
 const express = require("express");
 
 // import models so we can interact with the database
@@ -55,9 +52,6 @@ router.get("/whoami", (req, res) => {
   res.send(req.user);
 });
 
-router.get("/maingame", (req, res) => {
-  res.send({gameId: mainGameId});
-});
 router.post("/initsocket", (req, res) => {
   // do nothing if user not logged in
   if (req.user) socket.addUser(req.user, socket.getSocketFromSocketID(req.body.socketid));

@@ -6,6 +6,8 @@ import NavBar from "./modules/NavBar.js";
 import Game from "./pages/Game.js";
 import FindGames from "./pages/FindGames.js";
 import Create from "./pages/Create.js";
+import {DndProvider} from 'react-dnd';
+import Backend from 'react-dnd-html5-backend';
 
 import "../utilities.css";
 
@@ -55,13 +57,14 @@ class App extends Component {
     return (
       <>
         <div className = "u-app u-flexColumn">
-          <div className = "u-flexRow" >
-            <NavBar
-              handleLogin={this.handleLogin}
-              handleLogout={this.handleLogout}
-              userId={this.state.userId}
-            />
-          </div>
+          <DndProvider backend={Backend}>
+            <div className = "u-flexRow" >
+              <NavBar
+                handleLogin={this.handleLogin}
+                handleLogout={this.handleLogout}
+                userId={this.state.userId}
+              />
+            </div>
             <Router className = "u-flex u-grow">
               <Home path="/"/>
               <FindGames path="/public" />
@@ -69,6 +72,7 @@ class App extends Component {
               <Create path="/create"/>
               <NotFound default/>
             </Router>
+          </DndProvider>
         </div>
       </>
     );
