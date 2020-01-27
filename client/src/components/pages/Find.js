@@ -35,8 +35,8 @@ class Find extends Component{
   //   //Rerender based on search results.
   // }
   findGame = (value) => {
-    this.setState({games_viewed:this.state.games.filter((game) => game.name === value})
-  };
+    this.setState({games_viewed:this.state.games.filter((game) => {return game.name === value;})});
+  }
   render(){
     let gameBlock = "No available games"
     console.log("Render find page")

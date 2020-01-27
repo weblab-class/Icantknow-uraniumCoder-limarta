@@ -72,7 +72,7 @@ class App extends Component {
                 path="/"
               />
               <Find
-                path="/find"
+                path="/public"
                />
               <Game
                 path="/game/:gameId"
