@@ -16,7 +16,6 @@ class ItemBar extends Component{
     let items = this.props.items.map((item)=><Item name={item.name} path={item.path}/>)
     return (<>
       <div>
-      <h1>Item Bar</h1>
       {items}
       </div>
     </>);

@@ -2,17 +2,15 @@ import React, {Component} from "react";
 import Item from "./Item.js";
 import {useDrop} from 'react-dnd';
 import ItemTypes from "../../ItemTypes.js";
-import "../../utilities.css"
+import "../../utilities.css";
+
 const style = {
-  height: '12rem',
-  width: '12rem',
+  border: '1px dashed gray',
+  backgroundColor: 'white',
+  padding: '0.5rem 1rem',
   marginRight: '1.5rem',
   marginBottom: '1.5rem',
-  color: 'white',
-  padding: '1rem',
-  textAlign: 'center',
-  fontSize: '1rem',
-  lineHeight: 'normal',
+  cursor: 'move',
   float: 'left',
 }
 /**
@@ -24,7 +22,7 @@ const style = {
 const Board = (props)=>{
   const [{ canDrop, isOver }, drop] = useDrop({
       accept: ItemTypes.BOX,
-      drop: () => ({ name: 'Dustbin' }),
+      drop: () => ({ name: 'Board' }),
       collect: monitor => ({
         isOver: monitor.isOver(),
         canDrop: monitor.canDrop(),

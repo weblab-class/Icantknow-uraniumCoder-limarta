@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import {useDrag} from "react-dnd";
 import ItemTypes from "../../ItemTypes.js";
-import "../../utilities.css"
+import "../../utilities.css";
+
 const style = {
   border: '1px dashed gray',
   backgroundColor: 'white',
@@ -11,6 +12,7 @@ const style = {
   cursor: 'move',
   float: 'left',
 }
+import TEST_LOGO from './fire.png'
 /**
  *
  * Proptypes
@@ -35,7 +37,7 @@ const Item = (props)=>{
   return (<>
     <div ref={drag} style={{...style}}>
     <span>{props.name}</span>
-    <img src={props.path} alt={props.path}/>
+    <img src={TEST_LOGO} alt={props.path}/>
     </div>
   </>);
 }

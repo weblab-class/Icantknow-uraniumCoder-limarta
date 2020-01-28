@@ -7,11 +7,12 @@ import Board from "../modules/Board.js";
 
 import "../../utilities.css";
 import "./Game.css";
+const img_dir = "../../public/"
 
 const TEST_GAME = {
   game_id : 0,
   user_id : 0,
-  items : [{name:"water", path:"/"},{name:"fire", path:"/"},{name:"air",path:"/"}],
+  items : [{name:"water", path: img_dir+"water.png"},{name:"fire", path:img_dir+"fire.png"},{name:"air",path:img_dir+"air.png"}],
   items_on_board : [{item:<Item name="water" path="/"/>,position:[0,0]},
                     {item:<Item name="fire" path="/"/>,position:[10,10]}],
   rules : {"water,fire":"air"}
@@ -42,14 +43,6 @@ class Game extends Component{
     // Checks if game belongs to the logged in user
 
     get("/api/canplay", {gameId: this.props.game_id}).then((data) => this.setState({canPlay : data.canPlay}));
-    // Promise.all([
-    //   get("/api/whoami"),
-    //   get("/api/gameowner", {gameId: this.props.gameId}),
-    // ]).then((allData) => {
-    //   if(allData[0] && allData[0]._id == allData[1].ownerId){
-    //     this.setState({canPlay: true});
-    //   }
-    // });
     get("/api/found", {gameId: this.props.gameId}).then((data) => {
       this.setState({found: data.found});
     });
@@ -156,7 +149,9 @@ class Game extends Component{
       <>
       <div>
       <h1>{this.props.game_id}</h1>
+      <h1>Item Bar</h1>
       <ItemBar items={this.state.items}/>
+      <h1>Board</h1>
       <Board items={this.state.items_on_board}/>
       </div>
       </>
