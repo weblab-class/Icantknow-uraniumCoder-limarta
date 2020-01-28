@@ -23,7 +23,7 @@ class NavBar extends Component{
           <Link to = "/create"> Create </Link>
         )}
         {this.props.userId &&(
-          <Link to = "/find">Find</Link>
+          <Link to = "/public">Find</Link>
         )}
         {this.props.userId ? (
           <GoogleLogout

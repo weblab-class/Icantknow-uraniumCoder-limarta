@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Redirect} from "@reach/router";
 import {get} from "../../utilities.js"
 /**
  * @typedef ContentObject
@@ -9,18 +10,24 @@ import {get} from "../../utilities.js"
 class GameCard extends Component {
     constructor(props) {
         super(props);
-        this.state = {name: "", player_count: 0};
+        this.state = {name: "", player_count: 0, redirect: false};
     }
     componentDidMount() {
       get("/api/gameInfo", {gameId: this.props.gameId}).then((data) => {
         this.setState({name: data.name, player_count: data.player_count});
       });
     }
+    enterGame = () => {
+      this.setState({redirect: "game"});
+    }
     render() {
+      if(this.state.redirect){
+        return (<Redirect to={`/game/${this.props.gameId}`} />);
+      }
       return (
         <div>
-        <p>{this.state.name}</p>
-        <p>{this.state.player_count} online</p>
+          <button onClick = {this.enterGame}>{this.state.name}</button>
+          <p>{this.state.player_count} online</p>
         </div>
       );
     }
