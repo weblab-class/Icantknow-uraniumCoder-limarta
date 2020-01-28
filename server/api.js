@@ -29,7 +29,7 @@ const router = express.Router();
 
 // initialize socket
 const socket = require("./server-socket");
-
+const DEFAULT_PLAYER_COUNT = -3;
 
 // import game to get list of combinations
 // const game = require(".game");
@@ -67,7 +67,7 @@ router.post("/initsocket", (req, res) => {
 router.get("/querycombine", (req, res) => {
 
   let selected = req.query.elements;
-  Game.find({_id: req.query.gameId}).then((game) => {
+  Game.findOne({_id: req.query.gameId}).then((game) => {
     return Rule.find({_id: {$in : game.reactionRules}, reactants: {$all: selected, $size: selected.length}})
   }).then((applicableRules) => {
     if(!applicableRules){
@@ -89,6 +89,88 @@ router.get("/querycombine", (req, res) => {
   //   res.send({});
   // }
 
+});
+
+
+
+router.get("/canplay", (req, res) => {
+  console.log("received canplay request");
+  if(req.user){
+    console.log("user can play 0");
+    res.send({canPlay: true});
+    console.log("user can play");
+  } else {
+    res.send({canPlay: false});
+    console.log("not logged in");
+    console.log(req.user);
+  }
+});
+
+router.get("/games", (req, res) => {
+  Game.find({}).then((games) => {
+    res.send({games: games.map((game) => game._id)});
+  });
+});
+
+router.get("/gameInfo", (req, res) => {
+  console.log(req.query.gameId);
+  Game.findOne({_id: req.query.gameId}).then((game) => {
+    console.log(game.name);
+    res.send({id: game._id, name: game.name, player_count: DEFAULT_PLAYER_COUNT})
+  });
+});
+
+router.get("/found", (req, res) => {
+  if(!req.user){
+    Game.find({_id: req.query.gameId}).then((game) => {
+      res.send({found: ["air", "water",]});
+    });
+  } else{
+    console.log("logged in user wants to play");
+    PlayGame.find({template: req.query.gameId, player: req.user._id}).then((playGame) => {
+      console.log(playGame);
+      if(playGame.length == 0){
+        console.log("creating new game");
+        Game.findOne({_id: req.query.gameId}).then((template) => {
+          const newPlay = new PlayGame({
+            template: req.query.gameId,
+            player: req.user._id,
+            createdElements : template.startingElements,
+          });
+          newPlay.save();
+          res.send({found: newPlay.createdElements});
+        });
+      } else {
+        console.log("Found Game");
+        console.log(playGame[0].createdElements);
+        res.send({found: playGame[0].createdElements});
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+});
+
+router.post("/newElement", (req, res) => {
+  if(req.user){
+    PlayGame.findOne({template: req.body.gameId, player: req.user._id}).then((playGame) => {
+      playGame.createdElements = playGame.createdElements.push(req.body.element);
+      playGame.save();
+      res.send(playGame);
+    })
+  } else {
+    console.log("user not logged in cannot save progress");
+  }
+});
+
+// |------------------------------|
+// | write your API methods below!|
+// |------------------------------|
+
+// anything else falls to this "not found" case
+router.all("*", (req, res) => {
+  console.log(`API route not found: ${req.method} ${req.url}`);
+  res.status(404).send({ msg: "API route not found" });
 });
 
 // router.get("/createMainGame", (req, res) => {
@@ -190,71 +272,5 @@ router.get("/querycombine", (req, res) => {
 //
 //     // res.send({"msg": "successfully initiated main game!"});
 // });
-
-router.get("/canplay", (req, res) => {
-  console.log("received canplay request");
-  if(req.user){
-    console.log("user can play 0");
-    res.send({canPlay: true});
-    console.log("user can play");
-  } else {
-    res.send({canPlay: false});
-    console.log("not logged in");
-    console.log(req.user);
-  }
-});
-
-router.get("/found", (req, res) => {
-  if(!req.user){
-    Game.find({_id: req.query.gameId}).then((game) => {
-      res.send({found: ["air", "water",]});
-    });
-  } else{
-    console.log("logged in user wants to play");
-    PlayGame.find({template: req.query.gameId, player: req.user._id}).then((playGame) => {
-      console.log(playGame);
-      if(playGame.length == 0){
-        console.log("creating new game");
-        Game.findOne({_id: req.query.gameId}).then((template) => {
-          const newPlay = new PlayGame({
-            template: req.query.gameId,
-            player: req.user._id,
-            createdElements : template.startingElements,
-          });
-          newPlay.save();
-          res.send({found: newPlay.createdElements});
-        });
-      } else {
-        console.log("Found Game");
-        console.log(playGame[0].createdElements);
-        res.send({found: playGame[0].createdElements});
-      }
-    }).catch((err) => {
-      console.log(err);
-    });
-  }
-});
-
-router.post("/newElement", (req, res) => {
-  if(req.user){
-    PlayGame.findOne({template: req.body.gameId, player: req.user._id}).then((playGame) => {
-      playGame.createdElements = playGame.createdElements.push(req.body.element);
-      playGame.save();
-      res.send(playGame);
-    })
-  } else {
-    console.log("user not logged in cannot save progress");
-  }
-});
-
-// |------------------------------|
-// | write your API methods below!|
-// |------------------------------|
-
-// anything else falls to this "not found" case
-router.all("*", (req, res) => {
-  console.log(`API route not found: ${req.method} ${req.url}`);
-  res.status(404).send({ msg: "API route not found" });
-});
 
 module.exports = router;

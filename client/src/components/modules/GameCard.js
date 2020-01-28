@@ -9,12 +9,18 @@ import {get} from "../../utilities.js"
 class GameCard extends Component {
     constructor(props) {
         super(props);
+        this.state = {name: "", player_count: 0};
+    }
+    componentDidMount() {
+      get("/api/gameInfo", {gameId: this.props.gameId}).then((data) => {
+        this.setState({name: data.name, player_count: data.player_count});
+      });
     }
     render() {
       return (
         <div>
-        <p>{this.props.name}</p>
-        <p>{this.props.player_count} online</p>
+        <p>{this.state.name}</p>
+        <p>{this.state.player_count} online</p>
         </div>
       );
     }

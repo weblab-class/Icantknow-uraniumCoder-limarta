@@ -17,13 +17,14 @@ class Find extends Component{
         games : [],
         games_viewed: [],
         mainGame : null
-    }
+    };
   }
   componentDidMount(){
-      let gameId = "5e276c98a47e9303ac4d462c";
-      get("/api/games", {gameId:gameId}).then((games)=>{
-        this.setState({games:games})
-        this.setState({games_viewed:games})
+      // let gameId = "5e276c98a47e9303ac4d462c";
+      get("/api/games", {}).then((data)=>{
+        console.log(data);
+        this.setState({games:data.games});
+        this.setState({games_viewed:data.games});
         //Rank games by number of players
       });
 
@@ -38,18 +39,19 @@ class Find extends Component{
     this.setState({games_viewed:this.state.games.filter((game) => {return game.name === value;})});
   }
   render(){
-    let gameBlock = "No available games";
-    //console.log("Render find page");
-    //console.log(this.state.games);
-    if(this.state.games.length !== 0){
-        console.log(this.state.games_viewed)
-        gameBlock = this.state.games_viewed.map((game)=>(<FindGameBlock data={this.state.games}/>));
-    }
-
+    // let gameBlock = "No available games";
+    // //console.log("Render find page");
+    // //console.log(this.state.games);
+    // if(this.state.games.length !== 0){
+    //     console.log(this.state.games_viewed)
+    //
+    //     //gameBlock = this.state.games_viewed.map((game)=>(<FindGameBlock data={this.state.games}/>));
+    // }
+    console.log(this.state.games_viewed);
     return (<div>
       <h1>Find Games</h1>
       <SearchBar onSubmit={this.findGame}/>
-      {gameBlock}
+      <FindGameBlock games={this.state.games_viewed}/>
     </div>);
   }
 }

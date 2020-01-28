@@ -12,12 +12,11 @@ class FindGameBlock extends Component {
         super(props);
     }
     render() {
-
       return (
         <div>
           <h1>Games!</h1>
           {this.props.games.map((game) =>
-            <GameCard _id = {game._id} name={game.name} player_count = {game.player_count}/>)}
+            <GameCard gameId = {game}/>)}
         </div>
       );
     }
