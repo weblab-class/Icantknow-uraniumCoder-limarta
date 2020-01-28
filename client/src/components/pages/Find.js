@@ -21,7 +21,7 @@ class Find extends Component{
   }
   componentDidMount(){
       let gameId = "5e276c98a47e9303ac4d462c";
-      get("/api/found", {gameId:gameId}).then((games)=>{
+      get("/api/games", {gameId:gameId}).then((games)=>{
         this.setState({games:games})
         this.setState({games_viewed:games})
         //Rank games by number of players
@@ -39,9 +39,10 @@ class Find extends Component{
   }
   render(){
     let gameBlock = "No available games";
-    console.log("Render find page");
-    console.log(this.state.games);
+    //console.log("Render find page");
+    //console.log(this.state.games);
     if(this.state.games.length !== 0){
+        console.log(this.state.games_viewed)
         gameBlock = this.state.games_viewed.map((game)=>(<FindGameBlock data={this.state.games}/>));
     }
 
