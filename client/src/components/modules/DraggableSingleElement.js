@@ -36,11 +36,14 @@ class DraggableSingleElement extends Component{
     return (
       <>
         <SingleElement
-          draggable
-          onDragMove = { (event) => {
-            const { dx, dy } = event;
-            setCoordinate(dx, dy);
-            action('DragMove')(event);
+          draggable = "true"
+          ondrag = { (event) => {
+            console.log(event);
+            const dx = event.movementX;
+            const dy = event.movementY;
+            console.log(dx);
+            this.setCoordinate(dx, dy);
+            // action('DragMove')(event);
           }}
           element = {this.props.element}
           dispx = {this.state.x}
