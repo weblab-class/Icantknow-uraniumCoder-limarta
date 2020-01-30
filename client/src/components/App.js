@@ -44,6 +44,7 @@ class App extends Component {
       this.setState({ userId: user._id });
       console.log(`Logged in as ${res.profileObj.name}`);
       post("/api/initsocket", { socketid: socket.id });
+      window.location.reload();
     }).catch((err) => {
       console.log(err);
       alert(err);
@@ -53,6 +54,7 @@ class App extends Component {
   handleLogout = () => {
     this.setState({ userId: undefined });
     post("/api/logout");
+    window.location.reload();
   };
 
   render() {
