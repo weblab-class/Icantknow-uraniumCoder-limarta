@@ -47,8 +47,8 @@ class Game extends Component{
   }
 
   sendElements = (el1, el2) => {
-    get("/api/querycombine", {elements: [el1.name, el2.name], gameId: this.props.gameId}).then((obj) => {
-      if (obj) {
+    get("/api/querycombine", {element1: el1.name, element2: el2.name, gameId: this.props.gameId}).then((obj) => {
+      if (obj.products) {
         console.log(obj);
       //   get("/api/found", {gameId: this.props.gameId}).then((elements) => {
       //     if(!elements.elements includes(obj.products)) {

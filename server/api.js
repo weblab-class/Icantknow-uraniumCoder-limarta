@@ -66,10 +66,11 @@ router.post("/initsocket", (req, res) => {
 
 router.get("/querycombine", (req, res) => {
   console.log("trying to merge");
-  console.log(req.query.elements);
-  let selected = req.query.elements;
+  let selectedL = [req.query.element1, req.query.element2];
+  let selectedR = [req.query.element2, req.query.element1];
+  console.log(selectedL);
   Game.findOne({_id: req.query.gameId}).then((game) => {
-    return Rule.find({_id: {$in : game.reactionRules}}); //, reactants: {$all: selected, $size: selected.length}})
+    return Rule.find({_id: {$in : game.reactionRules} , $or : [{reactants: selectedL}, {reactants: selectedR}]});
   }).then((applicableRules) => {
     if(applicableRules.length == 0){
       res.send({});
