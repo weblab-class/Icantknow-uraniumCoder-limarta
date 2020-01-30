@@ -11,19 +11,11 @@ class SingleElement extends Component{
   componentDidMount(){
 
   }
-
-  dragstart_handler = (ev) => {
-    // Add the target element's id to the data transfer object
-    ev.dataTransfer.setData("application/my-app", ev.target.id);
-    ev.dataTransfer.dropEffect = "move";
-    console.log("dragging");
-  }
-
   render(){
     return (
       <>
-        <div className="element-box" draggable="true" onDragStart={this.dragstart_handler}
-          onDrop = {this.props.ondrag}
+        <div className="element-box" draggable="true" onDragStart={this.props.dragstart_handler}
+          onDragEnd = {this.props.ondrop}
           onDragOver = {function (ev) {
             ev.preventDefault();
           }}

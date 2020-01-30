@@ -15,6 +15,7 @@ class DraggableSingleElement extends Component{
       x: 70,
       y: 70
     }
+    this.hiddenState = {x: 0, y: 0}
   }
 
   componentDidMount(){
@@ -24,11 +25,19 @@ class DraggableSingleElement extends Component{
   setCoordinate = (newx, newy) => {
     this.setState ({
       x: this.state.x + newx,
-      y: this.state.y + newy
+      y: this.state.x + newy
     })
   }
 
 
+  dragstart_handler = (ev) => {
+    // Add the target element's id to the data transfer object
+    this.hiddenState.x = ev.clientX;
+    this.hiddenState.y = ev.clientY;
+    ev.dataTransfer.setData("application/my-app", ev.target.id);
+    ev.dataTransfer.dropEffect = "move";
+    console.log("dragging");
+  }
 
   // [coordinate, setCoordinate] = React.useState({ x: 0, y: 0 });
 
@@ -37,14 +46,17 @@ class DraggableSingleElement extends Component{
       <>
         <SingleElement
           draggable = "true"
-          ondrag = { (event) => {
+          ondrop = { (event) => {
             console.log(event);
-            const dx = event.movementX;
-            const dy = event.movementY;
-            console.log(dx);
-            this.setCoordinate(dx, dy);
+            console.log("screen" + event.screenX)
+            console.log("client" + event.clientX)
+            const ax = event.clientX - this.hiddenState.x;
+            const ay = event.clientY - this.hiddenState.y;
+            console.log(ax);
+            this.setCoordinate(ax, ay);
             // action('DragMove')(event);
           }}
+          dragstart_handler = {this.dragstart_handler}
           element = {this.props.element}
           dispx = {this.state.x}
           dispy = {this.state.y}
