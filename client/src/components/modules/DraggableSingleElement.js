@@ -25,7 +25,7 @@ class DraggableSingleElement extends Component{
   setCoordinate = (newx, newy) => {
     this.setState ({
       x: this.state.x + newx,
-      y: this.state.x + newy
+      y: this.state.y + newy
     })
   }
 
@@ -48,8 +48,9 @@ class DraggableSingleElement extends Component{
           draggable = "true"
           ondrop = { (event) => {
             console.log(event);
-            console.log("screen" + event.screenX)
-            console.log("client" + event.clientX)
+            console.log("screen" + event.screenX);
+            console.log("client" + event.clientX);
+            console.log("movement" + event.movementX);
             const ax = event.clientX - this.hiddenState.x;
             const ay = event.clientY - this.hiddenState.y;
             console.log(ax);
