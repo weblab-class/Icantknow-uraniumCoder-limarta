@@ -34,6 +34,7 @@
 }
 
 .combining-area {
+    position: relative;
     border: 1px;
     border-style: solid;
     border-color: #000000;
@@ -49,6 +50,7 @@
 }
 
 .element-list {
+    position: relative;
     flex-grow: 2;
     min-width: 112px;
     max-width: 240px;
