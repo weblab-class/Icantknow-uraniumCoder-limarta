@@ -47,8 +47,9 @@ class Game extends Component{
   }
 
   sendElements = (el1, el2) => {
-    get("/api/querycombine", {elements: [el1.name, el2.name]}).then((obj) => {
+    get("/api/querycombine", {elements: [el1.name, el2.name], gameId: this.props.gameId}).then((obj) => {
       if (obj) {
+        console.log(obj);
       //   get("/api/found", {gameId: this.props.gameId}).then((elements) => {
       //     if(!elements.elements includes(obj.products)) {
       //       post("api/newElement", {element: obj.products});
@@ -58,20 +59,22 @@ class Game extends Component{
       //       this.setState({textMessage: "already found this"});
       //     }
       //   });
-        if (!this.state.found.includes(obj.products)) {
-          post("api/newElement", {gameId: this.props.gameId, element: obj.products}).then((elements) =>{
+        obj.products.forEach((product) => {
+          if (!this.state.found.includes(product)) {
+            post("/api/newElement", {gameId: this.props.gameId, element: product}).then((elements) =>{
+              this.setState({
+                found: this.state.found.concat(product),
+                textMessage: "found stuff"
+              })
+            });
+            // give MessageBox something about
+          // }
+          } else {
             this.setState({
-              found: this.state.found.concat(obj.products),
-              textMessage: "found stuff"
+              textMessage: "already found this",
             })
-          });
-          // give MessageBox something about
-        // }
-      } else {
-          this.setState({
-            textMessage: "already found this",
-          })
-        }
+          }
+        });
       } else {
         this.setState({
           textMessage: "not combinable",

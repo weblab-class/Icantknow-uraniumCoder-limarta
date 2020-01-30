@@ -1,13 +1,16 @@
 function union(lists){
   result = [];
   lists.forEach((x) => {
+    // console.log(x);
       x.forEach((y) => {
-        if(!y in result){
+        // console.log(y);
+        if(!result.includes(y)){
           result.push(y);
+          console.log(result);
         }
       });
   });
-  return results;
+  return result;
 }
 
 module.exports = {

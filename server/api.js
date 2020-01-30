@@ -69,12 +69,14 @@ router.get("/querycombine", (req, res) => {
   console.log(req.query.elements);
   let selected = req.query.elements;
   Game.findOne({_id: req.query.gameId}).then((game) => {
-    return Rule.find({_id: {$in : game.reactionRules}, reactants: {$all: selected, $size: selected.length}})
+    return Rule.find({_id: {$in : game.reactionRules}}); //, reactants: {$all: selected, $size: selected.length}})
   }).then((applicableRules) => {
-    if(!applicableRules){
+    if(applicableRules.length == 0){
       res.send({});
     } else {
+      console.log(applicableRules);
       allProducts = applicableRules.map((r) => {return r.products});
+      console.log(allProducts);
       res.send({products: mathUtils.union(allProducts)});
     }
   });
@@ -155,8 +157,10 @@ router.get("/found", (req, res) => {
 router.post("/newElement", (req, res) => {
   if(req.user){
     PlayGame.findOne({template: req.body.gameId, player: req.user._id}).then((playGame) => {
+      console.log(req.body.element);
+      console.log(playGame.createdElements);
       playGame.createdElements = playGame.createdElements.push(req.body.element);
-      playGame.save();
+      playGame.update();
       res.send(playGame);
     })
   } else {
