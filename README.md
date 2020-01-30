@@ -1,8 +1,15 @@
 
 # Creative Alchemy
+This is a simple merging game where you drag elements together to form new elements
 
+# How to Play
+To start, click the main game button in the left of home page to play the main game, or the find games button to browse all of our available games.
+You must log in through google in order to play.
 
+In the game page, simply follow the instructions. Click on elements in the left to move them into the merging board, and drag elements on top of each other to try to merge them.
+Don't cheat!! If you drag many elements in the same spot, the game will only try to merge new elements with the first element put in the board.
 
+Progress is automatically saved to our backend database.
 
 # Citations
 Borrowed Code From:  https://github.com/weblab-workshops/skeleton
