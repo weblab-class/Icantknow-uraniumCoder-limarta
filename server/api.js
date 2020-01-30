@@ -65,7 +65,8 @@ router.post("/initsocket", (req, res) => {
 });
 
 router.get("/querycombine", (req, res) => {
-
+  console.log("trying to merge");
+  console.log(req.query.elements);
   let selected = req.query.elements;
   Game.findOne({_id: req.query.gameId}).then((game) => {
     return Rule.find({_id: {$in : game.reactionRules}, reactants: {$all: selected, $size: selected.length}})

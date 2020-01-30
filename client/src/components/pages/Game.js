@@ -20,7 +20,7 @@ class Game extends Component{
     this.state = {
       canPlay: false,
       found: ["air", "water", ],
-      textMessage: "Hi!",
+      textMessage: "Click Elements From Left to Play. Drag Elements Together to Merge.",
       elementsInPlay: [],
       curId: 0,
     }
@@ -47,7 +47,7 @@ class Game extends Component{
   }
 
   sendElements = (el1, el2) => {
-    get("/api/querycombine", {elements: [el1, el2]}).then((obj) => {
+    get("/api/querycombine", {elements: [el1.name, el2.name]}).then((obj) => {
       if (obj) {
       //   get("/api/found", {gameId: this.props.gameId}).then((elements) => {
       //     if(!elements.elements includes(obj.products)) {
@@ -107,13 +107,14 @@ class Game extends Component{
 
   tryMerge = (element1) => {
     const other = this.state.elementsInPlay.find((element2) => {
-      return (element1.key !== element2.key) && 
+      return (element1.key !== element2.key) &&
       (Math.abs(element2.positionX - element1.positionX) < 30) &&
       (Math.abs(element2.positionY - element1.positionY) < 30);
     });
     if(other){
       console.log("close to each other");
       console.log(other);
+      this.sendElements(element1, other);
     }
   }
 
