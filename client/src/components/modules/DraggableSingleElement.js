@@ -27,6 +27,8 @@ class DraggableSingleElement extends Component{
       x: this.state.x + newx,
       y: this.state.y + newy
     })
+    this.hiddenState.x = this.hiddenState.x + newx;
+    this.hiddenState.y = this.hiddenState.y + newy;
   }
 
 
