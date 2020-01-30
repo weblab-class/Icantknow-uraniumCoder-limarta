@@ -15,7 +15,7 @@
 */
 
 /* TODO: REPLACE WITH YOUR OWN FONT! */
-@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
 :root {
   --primary: #396dff;
@@ -24,6 +24,8 @@
   --medgrey: #e0e0e0;
   --grey: #f7f7f7;
   --white: #fff;
+
+  --bg-color: rgb(86, 190, 216);
 
   --xs: 4px;
   --s: 8px;

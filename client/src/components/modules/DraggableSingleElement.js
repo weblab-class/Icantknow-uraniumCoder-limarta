@@ -107,3 +107,21 @@ draggable="true" onDragStart="dragstart_handler(event)"
 
                   }}
                   */
+
+/*
+    const rect = document.getElementById("merging-area").getBoundingClientRect();
+    let newx = this.state.x;
+    if (newx < -1) {
+      newx = -1;
+    }
+    if (newx > rect.right-rect.left-71) {
+      newx = rect.right-rect.left-71;
+    }
+    let newy = this.state.y;
+    if (newy < -1) {
+      newy = -1;
+    }
+    if (newy > rect.bottom-rect.top-71) {
+      newy = rect.bottom-rect.top-71;
+    }
+*/

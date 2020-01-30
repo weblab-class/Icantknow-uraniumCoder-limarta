@@ -47,6 +47,7 @@ class Game extends Component{
   }
 
   sendElements = (el1, el2) => {
+    console.log("combining "+el1.name+" "+el2.name);
     get("/api/querycombine", {element1: el1.name, element2: el2.name, gameId: this.props.gameId}).then((obj) => {
       if (obj.products) {
         console.log(obj);
@@ -141,12 +142,13 @@ class Game extends Component{
           </div>
           <div className="center-of-page u-grow" id = "target">
             <MessageBox message={this.state.textMessage} />
-            <div className="combining-area">
+            <div className="combining-area" id = "merging-area">
               {this.state.elementsInPlay.map((element, index) => {
                 return (<DraggableSingleElement
                   element = {element}
                   key = {element.key}
-                  update = {this.updateElementPosition}/>);//DraggableSingleElement(element, element[0] + 1);
+                  update = {this.updateElementPosition}
+                  />);//DraggableSingleElement(element, element[0] + 1);
               })}
             </div>
           </div>
