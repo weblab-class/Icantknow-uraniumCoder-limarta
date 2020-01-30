@@ -160,8 +160,8 @@ router.post("/newElement", (req, res) => {
     PlayGame.findOne({template: req.body.gameId, player: req.user._id}).then((playGame) => {
       console.log(req.body.element);
       console.log(playGame.createdElements);
-      playGame.createdElements = playGame.createdElements.push(req.body.element);
-      playGame.update();
+      playGame.createdElements = playGame.createdElements.concat([req.body.element]);
+      playGame.save();
       res.send(playGame);
     })
   } else {
