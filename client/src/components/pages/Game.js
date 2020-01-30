@@ -154,7 +154,10 @@ class Game extends Component{
             <MessageBox message={this.state.textMessage} />
             <div className="combining-area">
               {this.state.elementsInPlay.map((element) => {
-                return (<SingleElement element = {element} key = {element[0] + 1}/>);
+                return (
+                  <div className = "u-drag">
+                    <SingleElement element = {element} key = {element[0] + 1}/>
+                  </div>);
               })}
             </div>
           </div>
