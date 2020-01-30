@@ -1,14 +1,14 @@
 .FindGamesButton-findButton {
   max-width: 100%;
   min-height: 100%;
-  background-image: url("../../public/find.jpg");
+  background-image: url("../../public/findWithText.jpg");
   background-repeat: no-repeat;
   background-size: contain;
 }
 .MainGameButton-mainButton {
   max-width: 100%;
   min-height: 100%;
-  background-image: url("../../public/creation.jpg");
+  background-image: url("../../public/creationWithText.jpg");
   background-repeat: no-repeat;
   background-size: contain;
 }

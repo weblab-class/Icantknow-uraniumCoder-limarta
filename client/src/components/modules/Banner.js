@@ -13,8 +13,10 @@ class Banner extends Component{
   }
   render(){
     return (
-      <div className = "Banner-Image">
-        <div className = "Banner-innerIm" />
+      <div className = "Banner-Image u-textCenter">
+        <div className = "Banner-innerIm" >
+        </div>
+        <h1>Creative Alchemy</h1>
       </div>
     );
   }
