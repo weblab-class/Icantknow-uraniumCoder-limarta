@@ -109,3 +109,9 @@ form {
   width:100%;
   min-height: 100vh;
 }
+.u-drag {
+  touch-action: none;
+  user-select: none;
+  -webkit-transform: translate(0px, 0px);
+          transform: translate(0px, 0px);
+}

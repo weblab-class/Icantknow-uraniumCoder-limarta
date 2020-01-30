@@ -12,7 +12,7 @@ class SingleElement extends Component{
 
   }
 
-  dragstart_handler(ev) {
+  dragstart_handler = function (ev) {
     // Add the target element's id to the data transfer object
     ev.dataTransfer.setData("application/my-app", ev.target.id);
     ev.dataTransfer.dropEffect = "move";
@@ -30,7 +30,7 @@ class SingleElement extends Component{
   render(){
     return (
       <>
-        <div className="element-box" draggable="true" onDragStart="dragstart_handler(event)">
+        <div className="element-box u-drag" draggable="true" onDragStart={this.dragstart_handler}>
         <div style={{
           position: "absolute",
           left: this.getX(),
@@ -41,7 +41,7 @@ class SingleElement extends Component{
           "border-color": "#000000",
           width: "70px",
           height: "70px",
-        }} id = {this.props.key}>
+        }}>
           {this.props.element[0]}
         </div>
         </div>
