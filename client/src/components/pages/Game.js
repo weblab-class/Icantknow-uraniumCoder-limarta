@@ -98,10 +98,23 @@ class Game extends Component{
         if(element.key == elementKey){
           element.positionX = newx;
           element.positionY = newy;
+          this.tryMerge(element);
         }
         return element;
       }),
     })
+  }
+
+  tryMerge = (element1) => {
+    const other = this.state.elementsInPlay.find((element2) => {
+      return (element1.key !== element2.key) && 
+      (Math.abs(element2.positionX - element1.positionX) < 30) &&
+      (Math.abs(element2.positionY - element1.positionY) < 30);
+    });
+    if(other){
+      console.log("close to each other");
+      console.log(other);
+    }
   }
 
   render(){
@@ -126,7 +139,6 @@ class Game extends Component{
             <MessageBox message={this.state.textMessage} />
             <div className="combining-area">
               {this.state.elementsInPlay.map((element, index) => {
-                console.log(element);
                 return (<DraggableSingleElement
                   element = {element}
                   key = {element.key}
