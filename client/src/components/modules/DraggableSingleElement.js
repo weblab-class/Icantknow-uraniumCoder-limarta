@@ -22,20 +22,23 @@ class DraggableSingleElement extends Component{
 
   }
 
-  setCoordinate = (newx, newy) => {
+  setCoordinate = (dx, dy) => {
     this.setState ({
-      x: this.state.x + newx,
-      y: this.state.y + newy
+      x: this.state.x + dx,
+      y: this.state.y + dy
     })
-    this.hiddenState.x = this.hiddenState.x + newx;
-    this.hiddenState.y = this.hiddenState.y + newy;
+    this.updatePosition(this.hiddenState.x + dx, this.hiddenState.y + dy);
   }
 
+  updatePosition = (newx, newy) => {
+    this.hiddenState.x = newx;
+    this.hiddenState.y = newy;
+    this.props.update(newx, newy, this.props.element.key);
+  }
 
   dragstart_handler = (ev) => {
     // Add the target element's id to the data transfer object
-    this.hiddenState.x = ev.clientX;
-    this.hiddenState.y = ev.clientY;
+    this.updatePosition(ev.clientX, ev.clientY);
     ev.dataTransfer.setData("application/my-app", ev.target.id);
     ev.dataTransfer.dropEffect = "move";
     console.log("dragging");

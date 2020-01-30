@@ -22,6 +22,7 @@ class Game extends Component{
       found: ["air", "water", ],
       textMessage: "Hi!",
       elementsInPlay: [],
+      curId: 0,
     }
   }
 
@@ -81,7 +82,25 @@ class Game extends Component{
 
   makeElementsInPlay = (name) => {
     this.setState({
-      elementsInPlay: this.state.elementsInPlay.concat([[name]]),
+      elementsInPlay: this.state.elementsInPlay.concat([{
+        name: name,
+        key: this.state.curId,
+        positionX: undefined,
+        positionY: undefined,
+      }]),
+      curId: this.state.curId + 1,
+    })
+  }
+
+  updateElementPosition = (newx, newy, elementKey) => {
+    this.setState({
+      elementsInPlay: this.state.elementsInPlay.map((element) => {
+        if(element.key == elementKey){
+          element.positionX = newx;
+          element.positionY = newy;
+        }
+        return element;
+      }),
     })
   }
 
@@ -106,8 +125,12 @@ class Game extends Component{
           <div className="center-of-page u-grow" id = "target">
             <MessageBox message={this.state.textMessage} />
             <div className="combining-area">
-              {this.state.elementsInPlay.map((element) => {
-                return (<DraggableSingleElement element = {element} key = {element[0] + 1}/>);//DraggableSingleElement(element, element[0] + 1);
+              {this.state.elementsInPlay.map((element, index) => {
+                console.log(element);
+                return (<DraggableSingleElement
+                  element = {element}
+                  key = {element.key}
+                  update = {this.updateElementPosition}/>);//DraggableSingleElement(element, element[0] + 1);
               })}
             </div>
           </div>

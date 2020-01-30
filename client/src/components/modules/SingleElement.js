@@ -32,7 +32,7 @@ class SingleElement extends Component{
             boxSizing: "border-box"
           }}
         >
-          {this.props.element+"\n"+this.props.dispx+"\n"+this.props.dispy}
+          {this.props.element.name+"\n"+this.props.dispx+"\n"+this.props.dispy}
         </div>
       </>
     );
