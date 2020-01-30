@@ -37,7 +37,6 @@ class Home extends Component {
           </div>
           <div className = "u-flex-justifyCenter u-flex-alignCenter">
             <button className = "u-textbox" onClick = {this.startCreating}> Start Creating </button>
-            <button className = "u-textbox" onClick = {this.mainGame}> Initiate Main Game </button>
           </div>
           <div className = " u-grow u-flexRow">
             <div className = "u-grow" >
@@ -52,5 +51,5 @@ class Home extends Component {
     );
   }
 }
-
+// <button className = "u-textbox" onClick = {this.mainGame}> Initiate Main Game </button>
 export default Home;
