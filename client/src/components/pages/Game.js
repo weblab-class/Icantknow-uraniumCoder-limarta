@@ -150,20 +150,23 @@ class Game extends Component{
               })}
             </div>
           </div>
-          <div className="chat u-grow">
-            <div className="element-list">
-              {this.state.found.map((element) => {
-                return (<SingleElement element = {element}/>);
-              })}
-            </div>
-            asijdfiajdifjaoidfaisdfjo
-          </div>
         </div>
       </>
     );
   }
 }
 
+/*
+
+<div className="chat u-grow">
+  <div className="element-list">
+    {this.state.found.map((element) => {
+      return (<SingleElement element = {element}/>);
+    })}
+  </div>
+  asijdfiajdifjaoidfaisdfjo
+</div>
+*/
 export default Game;
 
 /*
